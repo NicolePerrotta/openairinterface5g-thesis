@@ -697,6 +697,13 @@ static void pf_dl(module_id_t module_id,
       UE_sched[curUE].UE=UE;
       curUE++;
     }
+    //LOG to check the allocation of all the PRBs 
+    LOG_D(NR_MAC, "[UE %04x][%4d.%2d], rbStart: %d, n_rb_sched: %d\n",
+            UE->rnti,
+            frame,
+            slot,
+            sched_ctrl->sched_pdsch.rbStart,
+            n_rb_sched);
   }
 
   qsort(UE_sched, sizeofArray(UE_sched), sizeof(UEsched_t), comparator);
