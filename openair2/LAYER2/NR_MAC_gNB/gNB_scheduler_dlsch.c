@@ -789,6 +789,10 @@ static void pf_dl(module_id_t module_id,
     int rbStop = 0;
     int rbStart = 0;
     get_start_stop_allocation(mac, iterator->UE, &rbStart, &rbStop);
+
+    //LOG per rbStop
+    LOG_D("rbStop: %d\n", rbStop);
+
     // Freq-demain allocation
     while (rbStart < rbStop && (rballoc_mask[rbStart] & slbitmap) != slbitmap)
       rbStart++;
@@ -829,6 +833,7 @@ static void pf_dl(module_id_t module_id,
     sched_pdsch->tb_size = TBS;
     /* transmissions: directly allocate */
     n_rb_sched -= sched_pdsch->rbSize;
+    LOG_D("rbSize: %d\n", rbSize);
 
     for (int rb = 0; rb < sched_pdsch->rbSize; rb++)
       rballoc_mask[rb + sched_pdsch->rbStart] ^= slbitmap;
