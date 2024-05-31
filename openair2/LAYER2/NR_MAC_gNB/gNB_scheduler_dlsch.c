@@ -600,6 +600,7 @@ static void pf_dl(module_id_t module_id,
                   int n_rb_sched,
                   uint16_t *rballoc_mask)
 {
+  int tot_rb = n_rb_sched;
   gNB_MAC_INST *mac = RC.nrmac[module_id];
   NR_ServingCellConfigCommon_t *scc=mac->common_channels[0].ServingCellConfigCommon;
   // UEs that could be scheduled
@@ -698,7 +699,7 @@ static void pf_dl(module_id_t module_id,
       curUE++;
     }
     //LOG to check the allocation of all the PRBs 
-    LOG_D(NR_MAC, "[UE %04x][%4d.%2d], rbStart: %d, n_rb_sched: %d\n",
+    LOG_D(MAC, "[UE %04x][%4d.%2d], rbStart: %d, n_rb_sched: %d\n",
             UE->rnti,
             frame,
             slot,
@@ -833,7 +834,6 @@ static void pf_dl(module_id_t module_id,
     sched_pdsch->tb_size = TBS;
     /* transmissions: directly allocate */
     n_rb_sched -= sched_pdsch->rbSize;
-    LOG_D(NR_MAC, "rbSize: %d\n", rbSize);
 
     for (int rb = 0; rb < sched_pdsch->rbSize; rb++)
       rballoc_mask[rb + sched_pdsch->rbStart] ^= slbitmap;
@@ -841,6 +841,9 @@ static void pf_dl(module_id_t module_id,
     remainUEs--;
     iterator++;
   }
+  int rb_allocated = tot_rb - n_rb_sched;
+  time_t now = time(NULL);
+  LOG_D(MAC, "timestamp: %ld, rb_allocated: %d\n", now, rb_allocated);
 }
 
 static void nr_fr1_dlsch_preprocessor(module_id_t module_id, frame_t frame, sub_frame_t slot)
