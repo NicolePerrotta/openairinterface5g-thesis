@@ -604,6 +604,8 @@ static void initialize_agent(ngran_node_t node_type, e2_agent_args_t oai_args)
 
   sm_io_ag_ran_t io = init_ran_func_ag();
   init_agent_api(mcc, mnc, mnc_digit_len, nb_id, cu_du_id, node_type, io, &args);
+
+  int myIndex = 0;
 }
 #endif
 
@@ -611,8 +613,6 @@ configmodule_interface_t *uniqCfg = NULL;
 int main( int argc, char **argv ) {
   int ru_id, CC_id = 0;
   start_background_system();
-
-  int myIndex = 0;
 
   ///static configuration for NR at the moment
   if ((uniqCfg = load_configmodule(argc, argv, CONFIG_ENABLECMDLINEONLY)) == NULL) {
