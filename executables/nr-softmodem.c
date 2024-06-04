@@ -61,6 +61,9 @@ unsigned short config_frames[4] = {2,9,11,13};
 #include "UTIL/OPT/opt.h"
 #include "LAYER2/nr_pdcp/nr_pdcp_oai_api.h"
 
+//PRB 
+#include "LAYER2/NR_MAC_gNB/myArray.h"
+
 #include "intertask_interface.h"
 
 #include "PHY/INIT/nr_phy_init.h"
@@ -608,6 +611,8 @@ configmodule_interface_t *uniqCfg = NULL;
 int main( int argc, char **argv ) {
   int ru_id, CC_id = 0;
   start_background_system();
+
+  int myIndex = 0;
 
   ///static configuration for NR at the moment
   if ((uniqCfg = load_configmodule(argc, argv, CONFIG_ENABLECMDLINEONLY)) == NULL) {

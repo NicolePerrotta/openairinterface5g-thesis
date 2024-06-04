@@ -44,6 +44,12 @@
 #include "executables/softmodem-common.h"
 #include "../../../nfapi/oai_integration/vendor_ext.h"
 
+//PRB ARRAY
+#include ""
+
+//PRB 
+#include "LAYER2/NR_MAC_gNB/myArray.h"
+
 ////////////////////////////////////////////////////////
 /////* DLSCH MAC PDU generation (6.1.2 TS 38.321) */////
 ////////////////////////////////////////////////////////
@@ -592,6 +598,8 @@ static int comparator(const void *p, const void *q) {
   return ((UEsched_t*)p)->coef < ((UEsched_t*)q)->coef;
 }
 
+int myArray = malloc(sizeof(int) * 120000); //my array for the PRBs
+
 static void pf_dl(module_id_t module_id,
                   frame_t frame,
                   sub_frame_t slot,
@@ -699,12 +707,13 @@ static void pf_dl(module_id_t module_id,
       curUE++;
     }
     //LOG to check the allocation of all the PRBs 
-    LOG_D(MAC, "[UE %04x][%4d.%2d], rbStart: %d, n_rb_sched: %d\n",
+    /*LOG_D(MAC, "[UE %04x][%4d.%2d], rbStart: %d, n_rb_sched: %d\n",
             UE->rnti,
             frame,
             slot,
             sched_ctrl->sched_pdsch.rbStart,
             n_rb_sched);
+            */
   }
 
   qsort(UE_sched, sizeofArray(UE_sched), sizeof(UEsched_t), comparator);
@@ -841,9 +850,14 @@ static void pf_dl(module_id_t module_id,
     remainUEs--;
     iterator++;
   }
+
   int rb_allocated = tot_rb - n_rb_sched;
   time_t now = time(NULL);
-  LOG_D(MAC, "timestamp: %ld, rb_allocated: %d\n", now, rb_allocated);
+  char final_string[120];
+  sprintf(final_string, "timestamp: %ld, rb_allocated: %d\n", now, rb_allocated);
+  myArray[myIndex] = final_string;
+  myIndex++;
+  //LOG_D(MAC, "timestamp: %ld, rb_allocated: %d\n", now, rb_allocated);
 }
 
 static void nr_fr1_dlsch_preprocessor(module_id_t module_id, frame_t frame, sub_frame_t slot)
