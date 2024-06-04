@@ -850,7 +850,7 @@ static void pf_dl(module_id_t module_id,
 
   int rb_allocated = tot_rb - n_rb_sched;
   time_t now = time(NULL);
-  char final_string[120];
+  char final_string[300] =  {""};
   sprintf(final_string, "timestamp: %ld, rb_allocated: %d\n", now, rb_allocated);
   myArray[myIndex] = final_string;
   myIndex++;
