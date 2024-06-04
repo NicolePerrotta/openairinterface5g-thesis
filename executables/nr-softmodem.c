@@ -796,6 +796,18 @@ int main( int argc, char **argv ) {
     pthread_mutex_unlock(&sync_mutex);
   }
 
+  FILE *file = fopen("prb.csv", "w");
+  for (int i = 0; i < 120000; i++)
+  {
+    fprintf(file, "%s\n", myArray[i]);
+  }
+
+  if (fclose(file) != 0)
+  {
+    perror("Errore nella chiusura del file");
+    return 1;
+  }
+
   // wait for end of program
   printf("Entering ITTI signals handler\n");
   printf("TYPE <CTRL-C> TO TERMINATE\n");

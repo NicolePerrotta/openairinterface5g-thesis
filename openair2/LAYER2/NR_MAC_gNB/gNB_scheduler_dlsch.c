@@ -45,9 +45,6 @@
 #include "../../../nfapi/oai_integration/vendor_ext.h"
 
 //PRB ARRAY
-#include ""
-
-//PRB 
 #include "LAYER2/NR_MAC_gNB/myArray.h"
 
 ////////////////////////////////////////////////////////
@@ -598,7 +595,7 @@ static int comparator(const void *p, const void *q) {
   return ((UEsched_t*)p)->coef < ((UEsched_t*)q)->coef;
 }
 
-int myArray = malloc(sizeof(int) * 120000); //my array for the PRBs
+char myArray[120000][300] = {""}; //my array for the PRBs
 
 static void pf_dl(module_id_t module_id,
                   frame_t frame,
