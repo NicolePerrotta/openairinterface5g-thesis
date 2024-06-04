@@ -599,6 +599,7 @@ static int comparator(const void *p, const void *q) {
 }
 
 char myArray[120000][300] = {""}; //my array for the PRBs
+int myIndex = 0;
 
 static void pf_dl(module_id_t module_id,
                   frame_t frame,
