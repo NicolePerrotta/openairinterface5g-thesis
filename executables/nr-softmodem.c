@@ -788,7 +788,7 @@ int main( int argc, char **argv ) {
     pthread_mutex_unlock(&sync_mutex);
   }
 
-  FILE *file = fopen("prb.csv", "w");
+  FILE *file = fopen("prb.csv", "a");
   for (int i = 0; i < 120000; i++)
   {
     fprintf(file, "%s\n", myArray[i]);
