@@ -609,6 +609,14 @@ static void initialize_agent(ngran_node_t node_type, e2_agent_args_t oai_args)
 
 configmodule_interface_t *uniqCfg = NULL;
 int main( int argc, char **argv ) {
+  //char myArray[120000][300] = {0}; //my array for the PRBs
+  for (int i = 0; i < 120000; i++)
+  {
+      for (int j = 0; j < 300; j++)
+      {
+        myArray[i][j] = '\0';
+      }
+  }
   int ru_id, CC_id = 0;
   start_background_system();
 
@@ -845,5 +853,17 @@ int main( int argc, char **argv ) {
 
   logClean();
   printf("Bye.\n");
+  
+  FILE *file = fopen("prb.csv", "a");
+  for (int i = 0; i < 120000; i++)
+  {
+    fprintf(file, "%s\n", myArray[i]);
+  }
+
+  if (fclose(file) != 0)
+  {
+    perror("Errore nella chiusura del file");
+    return 1;
+  }
   return 0;
 }
