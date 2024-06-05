@@ -608,8 +608,10 @@ static void initialize_agent(ngran_node_t node_type, e2_agent_args_t oai_args)
 
 void init_eNB_afterRU(void);
 configmodule_interface_t *uniqCfg = NULL;
+
 int main( int argc, char **argv ) {
   //char myArray[120000][300] = {0}; //my array for the PRBs
+  //int myIndex = 0;
   for (int i = 0; i < 120000; i++)
   {
       for (int j = 0; j < 300; j++)
