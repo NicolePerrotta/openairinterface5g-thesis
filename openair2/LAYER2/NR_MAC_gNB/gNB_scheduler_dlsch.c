@@ -595,7 +595,7 @@ static int comparator(const void *p, const void *q) {
   return ((UEsched_t*)p)->coef < ((UEsched_t*)q)->coef;
 }
 
-char myArray[120000][300] = {0}; //my array for the PRBs
+//char myArray[120000][300] = {0}; //my array for the PRBs
 for (int i = 0; i < 120000; i++)
 {
     for (int j = 0; j < 300; j++)
