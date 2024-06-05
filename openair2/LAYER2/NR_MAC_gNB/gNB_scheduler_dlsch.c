@@ -850,7 +850,12 @@ static void pf_dl(module_id_t module_id,
   time_t now = time(NULL);
   char final_string[300] =  {""};
   sprintf(final_string, "timestamp: %ld, rb_allocated: %d\n", now, rb_allocated);
+  printf("RIGA1֫: timestamp: %ld\n", now);
+  printf("RIGA2: rb_allocated: %d\n", rb_allocated);
+  printf(final_string);
+  printf("FINE RIGA 3\n");
   strcpy(myArray[myIndex], final_string);
+  printf("RIGA 4: myIndex: %d", myIndex);
   myIndex++;
   //LOG_D(MAC, "timestamp: %ld, rb_allocated: %d\n", now, rb_allocated);
 }
