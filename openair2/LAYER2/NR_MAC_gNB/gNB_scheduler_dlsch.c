@@ -45,7 +45,7 @@
 #include "../../../nfapi/oai_integration/vendor_ext.h"
 
 //PRB ARRAY
-//#include "LAYER2/NR_MAC_gNB/myArray.h"
+#include "LAYER2/NR_MAC_gNB/myArray.h"
 
 ////////////////////////////////////////////////////////
 /////* DLSCH MAC PDU generation (6.1.2 TS 38.321) */////
