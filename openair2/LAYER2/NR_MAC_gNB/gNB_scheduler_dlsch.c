@@ -595,8 +595,14 @@ static int comparator(const void *p, const void *q) {
   return ((UEsched_t*)p)->coef < ((UEsched_t*)q)->coef;
 }
 
-char myArray[120000][300] = {""}; //my array for the PRBs
-int myIndex = 0;
+char myArray[120000][300] = {0}; //my array for the PRBs
+for (int i = 0; i < 120000; i++)
+{
+    for (int j = 0; j < 300; j++)
+    {
+      myArray[i][j] = '\0';
+    }
+}
 
 static void pf_dl(module_id_t module_id,
                   frame_t frame,
