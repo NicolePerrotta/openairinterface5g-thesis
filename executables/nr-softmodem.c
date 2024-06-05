@@ -61,7 +61,7 @@ unsigned short config_frames[4] = {2,9,11,13};
 #include "LAYER2/nr_pdcp/nr_pdcp_oai_api.h"
 
 //PRB 
-#include "LAYER2/NR_MAC_gNB/myArray.h"
+//#include "LAYER2/NR_MAC_gNB/myArray.h"
 
 #include "intertask_interface.h"
 
@@ -605,6 +605,8 @@ static void initialize_agent(ngran_node_t node_type, e2_agent_args_t oai_args)
   init_agent_api(mcc, mnc, mnc_digit_len, nb_id, cu_du_id, node_type, io, &args);
 }
 #endif
+extern char myArray[120000][300];
+extern int myIndex = 0
 
 void init_eNB_afterRU(void);
 configmodule_interface_t *uniqCfg = NULL;
