@@ -621,6 +621,7 @@ int main( int argc, char **argv ) {
         myArray[i][j] = '\0';
       }
   }
+  printf("Inizio main test ciclo prova[i]");
   int ru_id, CC_id = 0;
   start_background_system();
 
@@ -665,6 +666,7 @@ int main( int argc, char **argv ) {
     reset_opp_meas();
   }
 
+  printf("Metà main test ciclo prova[i]");
   cpuf=get_cpu_freq_GHz();
   itti_init(TASK_MAX, tasks_info);
   // initialize mscgen log after ITTI
@@ -806,6 +808,7 @@ int main( int argc, char **argv ) {
     pthread_mutex_unlock(&sync_mutex);
   }
 
+  printf("Quasi fine main test ciclo prova[i]");
 
   // wait for end of program
   printf("Entering ITTI signals handler\n");
