@@ -799,9 +799,6 @@ static void pf_dl(module_id_t module_id,
     int rbStart = 0;
     get_start_stop_allocation(mac, iterator->UE, &rbStart, &rbStop);
 
-    //LOG per rbStop
-    LOG_D(NR_MAC, "rbStop: %d\n", rbStop);
-
     // Freq-demain allocation
     while (rbStart < rbStop && (rballoc_mask[rbStart] & slbitmap) != slbitmap)
       rbStart++;
@@ -842,6 +839,17 @@ static void pf_dl(module_id_t module_id,
     sched_pdsch->tb_size = TBS;
     /* transmissions: directly allocate */
     n_rb_sched -= sched_pdsch->rbSize;
+    int rb_allocated = tot_rb - n_rb_sched;
+    time_t now = time(NULL);
+    char final_string[300] =  {""};
+    sprintf(final_string, "timestamp: %ld, rb_allocated: %d\n", now, rb_allocated);
+    printf("RIGA1֫: timestamp: %ld\n", now);
+    printf("RIGA2: rb_allocated: %d\n", rb_allocated);
+    printf(final_string);
+    printf("FINE RIGA 3\n");
+    strcpy(myArray[myIndex], final_string);
+    printf("RIGA 4: myIndex: %d", myIndex);
+    myIndex++;
 
     for (int rb = 0; rb < sched_pdsch->rbSize; rb++)
       rballoc_mask[rb + sched_pdsch->rbStart] ^= slbitmap;
@@ -849,19 +857,6 @@ static void pf_dl(module_id_t module_id,
     remainUEs--;
     iterator++;
   }
-
-  int rb_allocated = tot_rb - n_rb_sched;
-  time_t now = time(NULL);
-  char final_string[300] =  {""};
-  sprintf(final_string, "timestamp: %ld, rb_allocated: %d\n", now, rb_allocated);
-  printf("RIGA1֫: timestamp: %ld\n", now);
-  printf("RIGA2: rb_allocated: %d\n", rb_allocated);
-  printf(final_string);
-  printf("FINE RIGA 3\n");
-  strcpy(myArray[myIndex], final_string);
-  printf("RIGA 4: myIndex: %d", myIndex);
-  myIndex++;
-  //LOG_D(MAC, "timestamp: %ld, rb_allocated: %d\n", now, rb_allocated);
 }
 
 static void nr_fr1_dlsch_preprocessor(module_id_t module_id, frame_t frame, sub_frame_t slot)
