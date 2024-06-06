@@ -619,7 +619,7 @@ int main( int argc, char **argv ) {
         myArray[i][j] = '\0';
       }
   }
-  printf("Inizio main test ciclo prova[i]");
+  //PRINT FUNZIONANTE
   int ru_id, CC_id = 0;
   start_background_system();
 
@@ -668,7 +668,7 @@ int main( int argc, char **argv ) {
     reset_opp_meas();
   }
 
-  printf("Metà main test ciclo prova[i]");
+  //PRINT FUNZIONANTE
   cpuf=get_cpu_freq_GHz();
   itti_init(TASK_MAX, tasks_info);
   // initialize mscgen log after ITTI
@@ -800,7 +800,8 @@ int main( int argc, char **argv ) {
     pthread_mutex_unlock(&sync_mutex);
   }
 
-  printf("Quasi fine main test ciclo prova[i]");
+  //PRINT FUNZIONANTE
+  printf("aspetta la fine del programma\n");
 
   // wait for end of program
   printf("Entering ITTI signals handler\n");
@@ -810,12 +811,24 @@ int main( int argc, char **argv ) {
   oai_exit=1;
   printf("oai_exit=%d\n",oai_exit);
 
+  //PRINT FUNZIONANTE?
+  printf("prima del cleanup\n");
+
   // cleanup
   if (RC.nb_nr_L1_inst > 0)
     stop_gNB(RC.nb_nr_L1_inst);
 
   if (RC.nb_RU > 0)
     stop_RU(RC.nb_RU);
+
+  //PRINT FUNZIONANTE?
+  printf("DOPO CLEANUP: test ciclo prova[i]");
+  FILE *fileProva = fopen("prova.csv", "a");
+  if (fprintf(fileProva, "ciao sono nel file\n") < 0) {
+            perror("Errore durante la scrittura del file");
+            fclose(fileProva);
+            return 1;
+  }
 
   /* release memory used by the RU/gNB threads (incomplete), after all
    * threads have been stopped (they partially use the same memory) */
