@@ -853,6 +853,7 @@ int main( int argc, char **argv ) {
     for (int i = 0; i < 10; i++) {
         prova[i] = "Some data";
     }
+  printf(prova[1]);
   FILE *fileProva = fopen("prova.csv", "a");
   for (int i = 0; i < 10; i++) {
         if (fprintf(fileProva, "%s\n", prova[i]) < 0) {
