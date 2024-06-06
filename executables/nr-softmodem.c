@@ -869,38 +869,6 @@ int main( int argc, char **argv ) {
   logClean();
   printf("Bye.\n");
 
-
-  //DEBUG PROVA
-  char *prova[10];
-  printf("test ciclo prova[i]");
-  for (int i = 0; i < 10; i++) {
-      prova[i] = i;
-  }
-  for (int i = 0; i < 10; i++) {
-        printf(prova[i]);
-  }
-
-  FILE *fileProva = fopen("prova.csv", "a");
-  for (int i = 0; i < 10; i++) {
-        if (fprintf(fileProva, "%d\n", prova[i]) < 0) {
-            perror("Errore durante la scrittura del file");
-            fclose(fileProva);
-            return 1;
-        }
-    }
-  
-  if (fflush(fileProva) != 0) {
-        perror("Errore durante il flush del file");
-        fclose(fileProva);
-        return 1;
-    }
-
-  if (fclose(fileProva) != 0) {
-      perror("Errore nella chiusura del file");
-      return 1;
-  }
-  //FINE PROVA
-
   FILE *file = fopen("prb.csv", "a");
   for (int i = 0; i < 120000; i++)
   {
