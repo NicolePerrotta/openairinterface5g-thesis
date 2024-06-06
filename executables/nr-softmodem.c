@@ -845,23 +845,14 @@ int main( int argc, char **argv ) {
   }
 
    //DEBUG PROVA
-  char *prova[10];
   printf("test ciclo prova[i]");
-  for (int i = 0; i < 10; i++) {
-      prova[i] = i;
-  }
-  for (int i = 0; i < 10; i++) {
-        printf(prova[i]);
-  }
 
   FILE *fileProva = fopen("prova.csv", "a");
-  for (int i = 0; i < 10; i++) {
-        if (fprintf(fileProva, "%d\n", prova[i]) < 0) {
+  if (fprintf(fileProva, "ciao sono nel file\n") < 0) {
             perror("Errore durante la scrittura del file");
             fclose(fileProva);
             return 1;
-        }
-    }
+  }
   
   if (fflush(fileProva) != 0) {
         perror("Errore durante il flush del file");
