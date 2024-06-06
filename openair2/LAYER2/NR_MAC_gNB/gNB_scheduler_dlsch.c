@@ -843,13 +843,8 @@ static void pf_dl(module_id_t module_id,
     time_t now = time(NULL);
     char final_string[300] =  {""};
     sprintf(final_string, "timestamp: %ld, rb_allocated: %d\n", now, rb_allocated);
-    printf("Before final_string");
-    printf(final_string);
-    printf("After final_string");
     strcpy(myArray[myIndex], final_string);
-    printf("Before myArray");
     printf(myArray[myIndex]);
-    printf("After myArray");
     myIndex++;
 
     for (int rb = 0; rb < sched_pdsch->rbSize; rb++)
