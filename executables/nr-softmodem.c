@@ -860,28 +860,6 @@ int main( int argc, char **argv ) {
       RC.ru[ru_id]->ifdevice.trx_end_func(&RC.ru[ru_id]->ifdevice);
   }
 
-   //DEBUG PROVA
-  printf("test ciclo prova[i]");
-
-  FILE *fileProva = fopen("prova.csv", "a");
-  if (fprintf(fileProva, "ciao sono nel file\n") < 0) {
-            perror("Errore durante la scrittura del file");
-            fclose(fileProva);
-            return 1;
-  }
-  
-  if (fflush(fileProva) != 0) {
-        perror("Errore durante il flush del file");
-        fclose(fileProva);
-        return 1;
-    }
-
-  if (fclose(fileProva) != 0) {
-      perror("Errore nella chiusura del file");
-      return 1;
-  }
-  //FINE PROVA
-
   logClean();
   printf("Bye.\n");
 
