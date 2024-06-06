@@ -813,13 +813,25 @@ int main( int argc, char **argv ) {
   printf("TYPE <CTRL-C> TO TERMINATE\n");
 
   //PRINT FUNZIONANTE?
-  printf("test scrittura file: test ciclo prova[i]");
+  printf("test scrittura file: test ciclo prova\n");
+  printf(myArray[1]);
+  printf("\n riga sopra vuota con myArray[1]");
   FILE *fileProva = fopen("prova.csv", "a");
   if (fprintf(fileProva, "ciao sono nel file\n") < 0) {
             perror("Errore durante la scrittura del file");
             fclose(fileProva);
             return 1;
   }
+
+  FILE *file_pointer;
+  char stringa[] = "ciao sono nel file";
+  file_pointer = fopen("output.txt", "w");
+  if (file_pointer == NULL) {
+        printf("Impossibile aprire il file.");
+        return 1;
+  }
+  fprintf(file_pointer, "%s\n", stringa);
+  fclose(file_pointer);
 
   itti_wait_tasks_end(NULL);
   printf("Returned from ITTI signal handler\n");
