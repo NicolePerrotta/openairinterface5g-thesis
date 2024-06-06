@@ -838,17 +838,49 @@ int main( int argc, char **argv ) {
 
   logClean();
   printf("Bye.\n");
+
+
+  //DEBUG PROVA
+  char *prova[10];
+    for (int i = 0; i < 10; i++) {
+        prova[i] = "Some data";
+    }
+  FILE *fileProva = fopen("prova.csv", "a");
+  for (int i = 0; i < 10; i++) {
+        if (fprintf(fileProva, "%s\n", prova[i]) < 0) {
+            perror("Errore durante la scrittura del file");
+            fclose(fileProva);
+            return 1;
+        }
+    }
   
+  if (fflush(fileProva) != 0) {
+        perror("Errore durante il flush del file");
+        fclose(fileProva);
+        return 1;
+    }
+
+  if (fclose(fileProva) != 0) {
+      perror("Errore nella chiusura del file");
+      return 1;
+  }
+  //FINE PROVA
+
   FILE *file = fopen("prb.csv", "a");
   for (int i = 0; i < 120000; i++)
   {
     fprintf(file, "%s\n", myArray[i]);
   }
 
-  if (fclose(file) != 0)
-  {
-    perror("Errore nella chiusura del file");
-    return 1;
+  if (fflush(file) != 0) {
+      perror("Errore durante il flush del file");
+      fclose(file);
+      return 1;
+  }
+
+  if (fclose(file) != 0) {
+      perror("Errore nella chiusura del file");
+      return 1;
   }
   return 0;
 }
