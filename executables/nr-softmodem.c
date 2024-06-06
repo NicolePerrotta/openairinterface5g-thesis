@@ -842,10 +842,12 @@ int main( int argc, char **argv ) {
 
   //DEBUG PROVA
   char *prova[10];
-    for (int i = 0; i < 10; i++) {
-        prova[i] = "Some data";
-    }
-  printf(prova[1]);
+  for (int i = 0; i < 10; i++) {
+      prova[i] = "Some data";
+  }
+  for (int i = 0; i < 10; i++) {
+        printf(prova[i]);
+  }
   FILE *fileProva = fopen("prova.csv", "a");
   for (int i = 0; i < 10; i++) {
         if (fprintf(fileProva, "%s\n", prova[i]) < 0) {
