@@ -608,13 +608,14 @@ static void initialize_agent(ngran_node_t node_type, e2_agent_args_t oai_args)
 #endif
 
 //global variables
-char myArray[120000][300] = {0}; //my array for the PRBs
-int myIndex = 0;
+//char myArray[120000][300] = {0}; //my array for the PRBs
+//int myIndex = 0;
 FILE *fileProva = NULL;
 
 configmodule_interface_t *uniqCfg = NULL;
 
 int main( int argc, char **argv ) {
+  /*
   for (int i = 0; i < 120000; i++)
   {
       for (int j = 0; j < 300; j++)
@@ -622,7 +623,8 @@ int main( int argc, char **argv ) {
         myArray[i][j] = '\0';
       }
   }
-  
+  */
+ 
   int ru_id, CC_id = 0;
   start_background_system();
 
