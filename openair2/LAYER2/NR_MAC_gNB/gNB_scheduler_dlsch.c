@@ -842,10 +842,9 @@ static void pf_dl(module_id_t module_id,
     int rb_allocated = tot_rb - n_rb_sched;
     time_t now = time(NULL);
     char final_string[300] =  {""};
-    sprintf(final_string, "timestamp: %ld, rb_allocated: %d\n", now, rb_allocated);
-    strcpy(myArray[myIndex], final_string);
-    printf(myArray[myIndex]);
-    //char stringa[] = "ciao sono entrata nel file <3 \n";
+    sprintf(final_string, "timestamp: %ld, rb_allocated: %d", now, rb_allocated);
+    //strcpy(myArray[myIndex], final_string);
+    //printf(myArray[myIndex]);
     fileProva = fopen("prb.csv", "a");
     if (fileProva == NULL) {
           printf("Impossibile aprire il file.");
@@ -853,7 +852,7 @@ static void pf_dl(module_id_t module_id,
     }
     fprintf(fileProva, "%s\n", final_string);
     fclose(fileProva);
-    myIndex++;
+    //myIndex++;
 
     for (int rb = 0; rb < sched_pdsch->rbSize; rb++)
       rballoc_mask[rb + sched_pdsch->rbStart] ^= slbitmap;

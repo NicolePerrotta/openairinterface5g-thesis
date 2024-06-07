@@ -610,6 +610,7 @@ void init_eNB_afterRU(void);
 configmodule_interface_t *uniqCfg = NULL;
 
 int main( int argc, char **argv ) {
+  /*
   for (int i = 0; i < 120000; i++)
   {
       for (int j = 0; j < 300; j++)
@@ -617,7 +618,8 @@ int main( int argc, char **argv ) {
         myArray[i][j] = '\0';
       }
   }
-  
+  */
+ 
   int ru_id, CC_id = 0;
   start_background_system();
 
