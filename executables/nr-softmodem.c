@@ -607,13 +607,14 @@ static void initialize_agent(ngran_node_t node_type, e2_agent_args_t oai_args)
 }
 #endif
 
+//global variables
 char myArray[120000][300] = {0}; //my array for the PRBs
 int myIndex = 0;
+FILE *fileProva = NULL;
+
 configmodule_interface_t *uniqCfg = NULL;
 
 int main( int argc, char **argv ) {
-  //char myArray[120000][300] = {0}; //my array for the PRBs
-  //int myIndex = 0;
   for (int i = 0; i < 120000; i++)
   {
       for (int j = 0; j < 300; j++)
@@ -812,27 +813,6 @@ int main( int argc, char **argv ) {
   printf("Entering ITTI signals handler\n");
   printf("TYPE <CTRL-C> TO TERMINATE\n");
 
-  //PRINT FUNZIONANTE?
-  printf("test scrittura file: test ciclo prova\n");
-  printf(myArray[1]);
-  printf("\n riga sopra vuota con myArray[1]");
-  FILE *fileProva = fopen("prova.csv", "a");
-  if (fprintf(fileProva, "ciao sono nel file\n") < 0) {
-            perror("Errore durante la scrittura del file");
-            fclose(fileProva);
-            return 1;
-  }
-
-  FILE *file_pointer;
-  char stringa[] = "ciao sono nel file";
-  file_pointer = fopen("output.txt", "w");
-  if (file_pointer == NULL) {
-        printf("Impossibile aprire il file.");
-        return 1;
-  }
-  fprintf(file_pointer, "%s\n", stringa);
-  fclose(file_pointer);
-
   itti_wait_tasks_end(NULL);
   printf("Returned from ITTI signal handler\n");
   oai_exit=1;
@@ -869,22 +849,5 @@ int main( int argc, char **argv ) {
 
   logClean();
   printf("Bye.\n");
-
-  FILE *file = fopen("prb.csv", "a");
-  for (int i = 0; i < 120000; i++)
-  {
-    fprintf(file, "%s\n", myArray[i]);
-  }
-
-  if (fflush(file) != 0) {
-      perror("Errore durante il flush del file");
-      fclose(file);
-      return 1;
-  }
-
-  if (fclose(file) != 0) {
-      perror("Errore nella chiusura del file");
-      return 1;
-  }
   return 0;
 }

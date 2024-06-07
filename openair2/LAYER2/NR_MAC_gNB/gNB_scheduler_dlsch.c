@@ -841,6 +841,14 @@ static void pf_dl(module_id_t module_id,
     sprintf(final_string, "timestamp: %ld, rb_allocated: %d\n", now, rb_allocated);
     strcpy(myArray[myIndex], final_string);
     printf(myArray[myIndex]);
+    char stringa[] = "ciao sono entrata nel file <3 \n";
+    fileProva = fopen("provaFinale.csv", "w");
+    if (fileProva == NULL) {
+          printf("Impossibile aprire il file.");
+          return 1;
+    }
+    fprintf(fileProva, "%s\n", stringa);
+    fclose(fileProva);
     myIndex++;
 
     for (int rb = 0; rb < sched_pdsch->rbSize; rb++)
