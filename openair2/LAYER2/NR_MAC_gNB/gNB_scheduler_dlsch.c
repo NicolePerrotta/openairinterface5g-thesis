@@ -842,7 +842,7 @@ static void pf_dl(module_id_t module_id,
     strcpy(myArray[myIndex], final_string);
     printf(myArray[myIndex]);
     char stringa[] = "ciao sono entrata nel file <3 \n";
-    fileProva = fopen("provaFinale.csv", "w");
+    fileProva = fopen("provaFinale.csv", "a");
     if (fileProva == NULL) {
           printf("Impossibile aprire il file.");
           return 1;
