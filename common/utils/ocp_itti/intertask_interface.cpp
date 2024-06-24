@@ -444,14 +444,6 @@ typedef struct timer_elm_s {
   }
 
   static void catch_sigterm(int) {
-    static const char msg[] = "\n** Caught SIGTERM, shutting down\n";
-    __attribute__((unused))
-    int unused = write(STDOUT_FILENO, msg, sizeof(msg) - 1);
-    itti_wait_tasks_unblock();
-  }
-
-  void itti_wait_tasks_end(void (*handler)(int))
-  {
      //file added for prb allocated
       fileProva = fopen("prb.csv", "a");
       int n = sizeof(myArray) / sizeof(myArray[0]);
@@ -465,7 +457,15 @@ typedef struct timer_elm_s {
       }
       fclose(fileProva);
       //end of test 
+      
+    static const char msg[] = "\n** Caught SIGTERM, shutting down\n";
+    __attribute__((unused))
+    int unused = write(STDOUT_FILENO, msg, sizeof(msg) - 1);
+    itti_wait_tasks_unblock();
+  }
 
+  void itti_wait_tasks_end(void (*handler)(int))
+  {
     int rc = sem_init(&itti_sem_block, 0, 0);
     AssertFatal(rc == 0, "error in sem_init(): %d %s\n", errno, strerror(errno));
 
