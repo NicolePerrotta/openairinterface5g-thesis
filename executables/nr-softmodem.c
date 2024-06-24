@@ -830,6 +830,7 @@ int main( int argc, char **argv ) {
     fprintf(fileProva, "%s\n", myArray[i]);
   }
   fclose(fileProva);
+  //end of test 
   
   oai_exit=1;
   printf("oai_exit=%d\n",oai_exit);
