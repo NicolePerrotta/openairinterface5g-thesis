@@ -27,7 +27,7 @@
 #include <semaphore.h>
 
 //PRB 
-#include "LAYER2/NR_MAC_gNB/myArray.h"
+#include "openair2/LAYER2/NR_MAC_gNB/myArray.h"
 
 extern "C" {
 #include <intertask_interface.h>
