@@ -606,7 +606,11 @@ static void initialize_agent(ngran_node_t node_type, e2_agent_args_t oai_args)
 }
 #endif
 
-void init_eNB_afterRU(void);
+//global variables
+char myArray[120000][300] = {0}; //my array for the PRBs
+int myIndex = 0;
+//FILE *fileProva = NULL;
+
 configmodule_interface_t *uniqCfg = NULL;
 
 int main( int argc, char **argv ) {
