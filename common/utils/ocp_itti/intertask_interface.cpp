@@ -32,7 +32,7 @@ extern "C" {
 #include "executables/softmodem-common.h"
 
 //PRB 
-//#include "openair2/LAYER2/NR_MAC_gNB/myArray.h"
+#include "openair2/LAYER2/NR_MAC_gNB/myArray.h"
 
 typedef struct timer_elm_s {
   timer_type_t type; ///< Timer type
@@ -451,21 +451,7 @@ typedef struct timer_elm_s {
   }
 
   void itti_wait_tasks_end(void (*handler)(int))
-  {
-      printf("%d", numerology);
-      //file added for prb allocated
-      fileProva = fopen("prb.csv", "a");
-      int n = sizeof(myArray) / sizeof(myArray[0]);
-      if (fileProva == NULL) {
-              printf("Impossibile aprire il file.");
-      }
-      for (int i = 0; i < n; i++)
-      {
-        fprintf(fileProva, "%s\n", myArray[i]);
-      }
-      fclose(fileProva);
-      //end of test 
-      
+  { 
     printf("SONO IN ITTI_WAIT_TASKS_END\n");
     int rc = sem_init(&itti_sem_block, 0, 0);
     AssertFatal(rc == 0, "error in sem_init(): %d %s\n", errno, strerror(errno));
