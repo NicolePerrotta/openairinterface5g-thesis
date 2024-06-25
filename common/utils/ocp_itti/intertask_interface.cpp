@@ -457,7 +457,6 @@ typedef struct timer_elm_s {
       int n = sizeof(myArray) / sizeof(myArray[0]);
       if (fileProva == NULL) {
               printf("Impossibile aprire il file.");
-              return 1;
       }
       for (int i = 0; i < n; i++)
       {
