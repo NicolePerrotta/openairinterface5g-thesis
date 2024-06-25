@@ -816,22 +816,7 @@ int main( int argc, char **argv ) {
   printf("TYPE <CTRL-C> TO TERMINATE\n");
 
   itti_wait_tasks_end(NULL);
-  printf("Returned from ITTI signal handler\n");
-
-  //file added for prb allocated
-  fileProva = fopen("prb.csv", "a");
-  int n = sizeof(myArray) / sizeof(myArray[0]);
-  if (fileProva == NULL) {
-          printf("Impossibile aprire il file.");
-          return 1;
-  }
-  for (int i = 0; i < n; i++)
-  {
-    fprintf(fileProva, "%s\n", myArray[i]);
-  }
-  fclose(fileProva);
-  //end of test 
-  
+  printf("Returned from ITTI signal handler\n");  
   oai_exit=1;
   printf("oai_exit=%d\n",oai_exit);
 
