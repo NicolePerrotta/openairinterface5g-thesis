@@ -444,7 +444,7 @@ typedef struct timer_elm_s {
   }
 
   static void catch_sigterm(int) { 
-    printf("SONO IN CATCH SIGTERM\n")
+    printf("SONO IN CATCH SIGTERM\n");
     static const char msg[] = "\n** Caught SIGTERM, shutting down\n";
     __attribute__((unused))
     int unused = write(STDOUT_FILENO, msg, sizeof(msg) - 1);
@@ -467,7 +467,7 @@ typedef struct timer_elm_s {
       fclose(fileProva);
       //end of test 
       */
-    printf("SONO IN ITTI_WAIT_TASKS_END\n")
+    printf("SONO IN ITTI_WAIT_TASKS_END\n");
     int rc = sem_init(&itti_sem_block, 0, 0);
     AssertFatal(rc == 0, "error in sem_init(): %d %s\n", errno, strerror(errno));
 
