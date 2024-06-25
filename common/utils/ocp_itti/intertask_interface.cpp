@@ -443,21 +443,7 @@ typedef struct timer_elm_s {
     AssertFatal(rc == 0, "error in sem_post(): %d %s\n", errno, strerror(errno));
   }
 
-  static void catch_sigterm(int) {
-     //file added for prb allocated
-      fileProva = fopen("prb.csv", "a");
-      int n = sizeof(myArray) / sizeof(myArray[0]);
-      if (fileProva == NULL) {
-              printf("Impossibile aprire il file.");
-              return 1;
-      }
-      for (int i = 0; i < n; i++)
-      {
-        fprintf(fileProva, "%s\n", myArray[i]);
-      }
-      fclose(fileProva);
-      //end of test 
-      
+  static void catch_sigterm(int) { 
     static const char msg[] = "\n** Caught SIGTERM, shutting down\n";
     __attribute__((unused))
     int unused = write(STDOUT_FILENO, msg, sizeof(msg) - 1);
