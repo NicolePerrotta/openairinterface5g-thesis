@@ -466,6 +466,19 @@ typedef struct timer_elm_s {
 
   void itti_wait_tasks_end(void (*handler)(int))
   {
+      //file added for prb allocated
+      fileProva = fopen("prb.csv", "a");
+      int n = sizeof(myArray) / sizeof(myArray[0]);
+      if (fileProva == NULL) {
+              printf("Impossibile aprire il file.");
+              return 1;
+      }
+      for (int i = 0; i < n; i++)
+      {
+        fprintf(fileProva, "%s\n", myArray[i]);
+      }
+      fclose(fileProva);
+      //end of test 
     int rc = sem_init(&itti_sem_block, 0, 0);
     AssertFatal(rc == 0, "error in sem_init(): %d %s\n", errno, strerror(errno));
 
