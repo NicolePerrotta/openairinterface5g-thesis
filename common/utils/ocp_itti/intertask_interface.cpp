@@ -452,6 +452,7 @@ typedef struct timer_elm_s {
 
   void itti_wait_tasks_end(void (*handler)(int))
   {
+      printf("%d", numerology);
       //file added for prb allocated
       fileProva = fopen("prb.csv", "a");
       int n = sizeof(myArray) / sizeof(myArray[0]);
