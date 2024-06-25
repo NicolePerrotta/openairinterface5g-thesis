@@ -453,7 +453,7 @@ typedef struct timer_elm_s {
   void itti_wait_tasks_end(void (*handler)(int))
   {
       //file added for prb allocated
-      fileProva = fopen("prb.csv", "a");
+      FILE* fileProva = fopen("prb.csv", "a");
       int n = sizeof(myArray) / sizeof(myArray[0]);
       if (fileProva == NULL) {
               printf("Impossibile aprire il file.");
