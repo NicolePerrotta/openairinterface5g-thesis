@@ -875,7 +875,8 @@ static void pf_dl(module_id_t module_id,
 
     pthread_t thread; // Variabile per il thread
     int arg = 42; // Argomento per il thread
-
+    
+    /*
     // Creazione del thread
     if (pthread_create(&thread, NULL, threadFunction, &arg))
     {
@@ -889,6 +890,8 @@ static void pf_dl(module_id_t module_id,
 
     remainUEs--;
     iterator++;
+    */
+
   }
 }
 
