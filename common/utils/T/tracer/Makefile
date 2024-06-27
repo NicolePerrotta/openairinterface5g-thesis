@@ -34,6 +34,10 @@ textlog: utils.o textlog.o database.o event.o handler.o configuration.o \
          view/view.a logger/logger.a filter/filter.a
 	$(CC) $(CFLAGS) -o textlog $^ $(LIBS)
 
+trace_rb_allocated: utils.o trace_rb_allocated.o database.o event.o handler.o configuration.o \
+         view/view.a logger/logger.a filter/filter.a
+	$(CC) $(CFLAGS) -o trace_rb_allocated $^ $(LIBS) 
+
 enb: utils.o enb.o database.o event.o handler.o configuration.o \
          event_selector.o view/view.a gui/gui.a logger/logger.a \
          filter/filter.a
@@ -64,11 +68,6 @@ gnb: utils.o gnb.o database.o event.o handler.o configuration.o \
          view/view.a gui/gui.a logger/logger.a \
          filter/filter.a
 	$(CC) $(CFLAGS) -o gnb $^ $(LIBS) $(XLIBS)
-
-trace_rb_allocated: utils.o trace_rb_allocated.o database.o event.o handler.o configuration.o \
-         view/view.a gui/gui.a logger/logger.a \
-         filter/filter.a
-	$(CC) $(CFLAGS) -o trace_rb_allocated $^ $(LIBS) $(XLIBS)
 
 multi.o: ../incgen/T_IDs.h
 
