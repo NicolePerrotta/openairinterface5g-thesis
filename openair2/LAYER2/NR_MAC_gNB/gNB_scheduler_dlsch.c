@@ -869,7 +869,7 @@ static void pf_dl(module_id_t module_id,
       if (fileProva == NULL) {
             printf("Impossibile aprire il file.");
             pthread_mutex_unlock(&mutex); // Sblocca il mutex prima di uscire
-            return 1;
+            return NULL;
       }
       fprintf(fileProva, "%s\n", final_string);
       fclose(fileProva);
