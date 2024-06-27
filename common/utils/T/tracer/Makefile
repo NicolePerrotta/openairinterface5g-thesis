@@ -90,7 +90,7 @@ filter/filter.a:
 clean:
 	rm -f *.o core tracer_remote textlog enb ue vcd record replay
 	rm -f extract_config macpdu2wireshark extract_input_subframe
-	rm -f extract_output_subframe to_vcd extract multi gnb
+	rm -f extract_output_subframe to_vcd extract multi gnb trace_rb_allocated
 	cd gui && $(MAKE) clean
 	cd view && $(MAKE) clean
 	cd logger && $(MAKE) clean
