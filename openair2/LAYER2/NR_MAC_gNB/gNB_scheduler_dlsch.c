@@ -834,68 +834,21 @@ static void pf_dl(module_id_t module_id,
     sched_pdsch->rbSize = rbSize;
     sched_pdsch->rbStart = rbStart;
     sched_pdsch->tb_size = TBS;
+
     /* transmissions: directly allocate */
-    /*
+    
     n_rb_sched -= sched_pdsch->rbSize;
     int rb_allocated = tot_rb - n_rb_sched;
     time_t now = time(NULL);
+    int id_ue = UE->rnti;
     char final_string[300] =  {""};
-    sprintf(final_string, "timestamp: %ld, rb_allocated: %d", now, rb_allocated);
-    strcpy(myArray[myIndex], final_string);
-    printf(myArray[myIndex]);
-    //fileProva = fopen("prb.csv", "a");
-    //if (fileProva == NULL) {
-    //      printf("Impossibile aprire il file.");
-    //      return 1;
-    //}
-    //fprintf(fileProva, "%s\n", final_string);
-    //fclose(fileProva);
-    myIndex++;
-    */
-    //NEW THREAD
-    void* threadFunction(void* arg)
-    {
-      pthread_mutex_lock(&mutex);
-      printf("SONO NEL THREAD\n");
-      n_rb_sched -= sched_pdsch->rbSize;
-      //int id_ue = UE->rnti;
-      int rb_allocated = tot_rb - n_rb_sched;
-      time_t now = time(NULL);
-      char final_string[300] =  {""};
-      //sprintf(final_string, "timestamp: %ld, rb_allocated: %d, id_ue: %d", now, rb_allocated, id_ue);
-      sprintf(final_string, "timestamp: %ld, rb_allocated: %d", now, rb_allocated);
-      strcpy(myArray[myIndex], final_string);
-      printf(myArray[myIndex]);
-      fileProva = fopen("prb.csv", "a");
-      if (fileProva == NULL) {
-            printf("Impossibile aprire il file.");
-            pthread_mutex_unlock(&mutex); // Sblocca il mutex prima di uscire
-            return NULL;
-      }
-      fprintf(fileProva, "%s\n", final_string);
-      fclose(fileProva);
-      myIndex++;
-      pthread_mutex_unlock(&mutex); // Sblocca il mutex prima di uscire
-      return NULL;
-    }
-
-    pthread_t thread; // Variabile per il thread
-    int arg = 42; // Argomento per il thread
-
-    // Creazione del thread
-    if (pthread_create(&thread, NULL, threadFunction, &arg))
-    {
-        fprintf(stderr, "Error creating thread\n");
-        return 1;
-    }
-    //FINE THREAD
+    sprintf(final_string, "timestamp: %ld, rb_allocated: %d, id_ue: %d", now, rb_allocated, id_ue);
 
     for (int rb = 0; rb < sched_pdsch->rbSize; rb++)
       rballoc_mask[rb + sched_pdsch->rbStart] ^= slbitmap;
 
     remainUEs--;
     iterator++;
-
   }
 }
 

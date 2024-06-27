@@ -31,9 +31,6 @@ extern "C" {
 #include <common/utils/system.h>
 #include "executables/softmodem-common.h"
 
-//PRB 
-#include "openair2/LAYER2/NR_MAC_gNB/myArray.h"
-
 typedef struct timer_elm_s {
   timer_type_t type; ///< Timer type
   long instance;
@@ -514,5 +511,4 @@ void log_scheduler(const char* label)
           buffer,
           label);
 }
-} // extern "C"
-
+}

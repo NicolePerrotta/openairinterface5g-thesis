@@ -61,9 +61,6 @@ unsigned short config_frames[4] = {2,9,11,13};
 #include "UTIL/OPT/opt.h"
 #include "LAYER2/nr_pdcp/nr_pdcp_oai_api.h"
 
-//PRB 
-#include "LAYER2/NR_MAC_gNB/myArray.h"
-
 #include "intertask_interface.h"
 
 #include "PHY/INIT/nr_phy_init.h"
@@ -607,25 +604,9 @@ static void initialize_agent(ngran_node_t node_type, e2_agent_args_t oai_args)
 }
 #endif
 
-//global variables
-char myArray[120000][300] = {0}; //my array for the PRBs
-int myIndex = 0;
-FILE *fileProva = NULL;
-// Mutex per sincronizzare l'accesso alle risorse condivise
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-
 configmodule_interface_t *uniqCfg = NULL;
 
 int main( int argc, char **argv ) {
-  /*
-  for (int i = 0; i < 120000; i++)
-  {
-      for (int j = 0; j < 300; j++)
-      {
-        myArray[i][j] = '\0';
-      }
-  }
-  */
  
   int ru_id, CC_id = 0;
   start_background_system();
