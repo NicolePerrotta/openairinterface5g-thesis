@@ -44,10 +44,10 @@ int main(int n, char **v)
   int number_of_events;
   int i;
   int socket;
-  int ldpc_ok_id;
+  int rb_allocated_id;
   database_event_format f;
-  int segment;
-  int nb_segments;
+  int id_ue;
+  int rb_allocated;
   int offset;
   int data;
 
@@ -79,19 +79,19 @@ int main(int n, char **v)
   is_on = calloc(number_of_events, sizeof(int));
   if (is_on == NULL) abort();
 
-  /* activate the LDPC_OK trace in this array */
-  on_off(database, "LDPC_OK", is_on, 1);
+  /* activate the RB_ALLOCATED trace in this array */
+  on_off(database, "RB_ALLOCATED", is_on, 1);
 
   /* connect to the nr-softmodem */
   socket = connect_to(ip, port);
 
-  /* activate the trace LDPC_OK in the nr-softmodem */
+  /* activate the trace RB_ALLOCATED in the nr-softmodem */
   activate_traces(socket, number_of_events, is_on);
 
   free(is_on);
-  /* get the format of the LDPC_OK trace */
-  ldpc_ok_id = event_id_from_name(database, "LDPC_OK");
-  f = get_format(database, ldpc_ok_id);
+  /* get the format of the RB_ALLOCATED trace */
+  rb_allocated_id = event_id_from_name(database, "RB_ALLOCATED");
+  f = get_format(database, rb_allocated_id);
 
 /* this macro looks for a particular element and checks its type */
 #define G(var_name, var_type, var) \
@@ -100,14 +100,13 @@ int main(int n, char **v)
     var = i; \
     continue; \
   }
-  /* get the elements of the LDPC_OK trace
+  /* get the elements of the RB_ALLOCATED trace
    * the value is an index in the event, see below
    */
   for (i = 0; i < f.count; i++) {
-    G("segment",     "int",    segment);
-    G("nb_segments", "int",    nb_segments);
-    G("offset",      "int",    offset);
-    G("data",        "buffer", data);
+    G("id_ue",     "int",    id_ue);
+    G("rb_allocated", "int",    rb_allocated);
+    printf("id_ue: %d, rb_allocated: %d", id_ue, rb_allocated);
   }
 
   /* a buffer needed to receive events from the nr-softmodem */
@@ -118,15 +117,15 @@ int main(int n, char **v)
     event e;
     e = get_event(socket, &ebuf, database);
     if (e.type == -1) break;
-    if (e.type == ldpc_ok_id) {
-      /* this is how to access the elements of the LDPC_OK trace.
+    if (e.type == rb_allocated_id) {
+      /* this is how to access the elements of the RB_ALLOCATED trace.
        * we use e.e[<element>] and then the correct suffix, here
        * it's .i for the integer and .b for the buffer and .bsize
        * for the buffer size
        * see in event.h the structure event_arg
        */
       unsigned char *buf = e.e[data].b;
-      printf("get LDPC_OK event segment %d nb_segments %d offset %d buffer length %d = [",
+      printf("get RB_ALLOCATED event segment %d nb_segments %d offset %d buffer length %d = [",
              e.e[segment].i,
              e.e[nb_segments].i,
              e.e[offset].i,
