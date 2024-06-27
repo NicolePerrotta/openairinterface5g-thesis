@@ -3649,4 +3649,5 @@ ID = VCD_FUNCTION_BEAM_SWITCHING_GPIO
     GROUP = ALL:VCD:ENB:VCD_FUNCTION
     FORMAT = int,value
     VCD_NAME = beam_switching_gpio
-
+ID = RB_ALLOCATED
+    FORMAT = int,id_ue : int,rb_allocated

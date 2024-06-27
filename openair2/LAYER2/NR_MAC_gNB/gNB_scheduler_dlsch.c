@@ -842,11 +842,9 @@ static void pf_dl(module_id_t module_id,
     /* transmissions: directly allocate */
     
     n_rb_sched -= sched_pdsch->rbSize;
-    int rb_allocated = tot_rb - n_rb_sched;
-    time_t now = time(NULL);
     int id_ue = UE->rnti;
-    char final_string[300] =  {""};
-    sprintf(final_string, "timestamp: %ld, rb_allocated: %d, id_ue: %d", now, rb_allocated, id_ue);
+    int rb_allocated = tot_rb - n_rb_sched;
+    T(T_RB_ALLOCATED, T_INT(id_ue), T_INT(rb_allocated));
 
     for (int rb = 0; rb < sched_pdsch->rbSize; rb++)
       rballoc_mask[rb + sched_pdsch->rbStart] ^= slbitmap;
