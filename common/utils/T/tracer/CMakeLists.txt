@@ -82,5 +82,5 @@ if(T_TRACER_GUI)
 
   add_subdirectory(gui)
 
-  add_dependencies(T_tools enb gnb ue vcd to_vcd)
+  add_dependencies(T_tools enb gnb ue vcd to_vcd trace_rb_allocated)
 endif()
