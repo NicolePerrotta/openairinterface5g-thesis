@@ -30,6 +30,10 @@ add_executable(textlog textlog.c)
 target_link_libraries(textlog PRIVATE tracer_utils tracer_filter
                       tracer_logger tracer_view)
 
+add_executable(trace_rb_allocated trace_rb_allocated.c)
+target_link_libraries(trace_rb_allocated PRIVATE tracer_utils tracer_filter
+                      tracer_logger tracer_view)
+
 add_subdirectory(filter)
 add_subdirectory(logger)
 add_subdirectory(view)
@@ -38,7 +42,7 @@ add_custom_target(T_tools)
 add_dependencies(T_tools
                  record replay extract_config extract_input_subframe
                  extract_output_subframe extract macpdu2wireshark multi
-                 textlog)
+                 textlog trace_rb_allocated)
 add_dependencies(nr-softmodem T_tools)
 add_dependencies(nr-uesoftmodem T_tools)
 add_dependencies(lte-softmodem T_tools)
@@ -61,11 +65,6 @@ if(T_TRACER_GUI)
   target_link_libraries(gnb PRIVATE tracer_utils tracer_filter tracer_gui
                         tracer_logger tracer_view tracer_events)
   target_link_libraries(gnb PRIVATE png)
-
-  add_executable(trace_rb_allocated trace_rb_allocated.c)
-  target_link_libraries(trace_rb_allocated PRIVATE tracer_utils tracer_filter tracer_gui
-                        tracer_logger tracer_view tracer_events)
-  target_link_libraries(trace_rb_allocated PRIVATE png)
 
   add_executable(ue ue.c)
   target_link_libraries(ue PRIVATE tracer_utils tracer_filter tracer_gui
