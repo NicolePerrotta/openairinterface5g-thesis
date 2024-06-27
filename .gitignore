@@ -54,3 +54,5 @@ docker/Dockerfile.base.dpdk.ubuntu22
 docker/Dockerfile.build.split72.ubuntu22
 docker/Dockerfile.gNB.split72.ubuntu22
 
+common/utils/T/tracer/trace_rb_allocated
+output.txt

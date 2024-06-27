@@ -36,7 +36,7 @@ textlog: utils.o textlog.o database.o event.o handler.o configuration.o \
 
 trace_rb_allocated: utils.o trace_rb_allocated.o database.o event.o handler.o configuration.o \
          view/view.a logger/logger.a filter/filter.a
-	$(CC) $(CFLAGS) -o trace_rb_allocated $^ $(LIBS) 
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBS) 
 
 enb: utils.o enb.o database.o event.o handler.o configuration.o \
          event_selector.o view/view.a gui/gui.a logger/logger.a \
