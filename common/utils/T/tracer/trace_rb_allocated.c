@@ -9,7 +9,7 @@
 #include "logger/logger.h"
 #include "utils.h"
 #include "event_selector.h"
-#include "config.h"
+#include "configuration.h"
 
 /* this function sends the activated traces to the nr-softmodem */
 void activate_traces(int socket, int number_of_events, int *is_on)

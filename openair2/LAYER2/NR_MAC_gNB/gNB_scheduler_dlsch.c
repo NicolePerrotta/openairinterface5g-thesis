@@ -44,10 +44,6 @@
 #include "executables/softmodem-common.h"
 #include "../../../nfapi/oai_integration/vendor_ext.h"
 
-//PRB ARRAY
-#include "LAYER2/NR_MAC_gNB/myArray.h"
-#include <pthread.h>
-
 ////////////////////////////////////////////////////////
 /////* DLSCH MAC PDU generation (6.1.2 TS 38.321) */////
 ////////////////////////////////////////////////////////
