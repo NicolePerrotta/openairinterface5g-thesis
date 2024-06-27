@@ -8,7 +8,7 @@ XLIBS=-lX11 -lpng -lXft
 
 all: record replay extract_config textlog enb ue vcd macpdu2wireshark \
      extract_input_subframe extract_output_subframe to_vcd extract multi \
-     gnb
+     gnb trace_rb_allocated
 
 record: utils.o record.o database.o configuration.o
 	$(CC) $(CFLAGS) -o record $^ $(LIBS)
@@ -64,6 +64,11 @@ gnb: utils.o gnb.o database.o event.o handler.o configuration.o \
          view/view.a gui/gui.a logger/logger.a \
          filter/filter.a
 	$(CC) $(CFLAGS) -o gnb $^ $(LIBS) $(XLIBS)
+
+trace_rb_allocated: utils.o trace_rb_allocated.o database.o event.o handler.o configuration.o \
+         view/view.a gui/gui.a logger/logger.a \
+         filter/filter.a
+	$(CC) $(CFLAGS) -o trace_rb_allocated $^ $(LIBS) $(XLIBS)
 
 multi.o: ../incgen/T_IDs.h
 
