@@ -856,10 +856,11 @@ static void pf_dl(module_id_t module_id,
     {
       printf("SONO NEL THREAD\n");
       n_rb_sched -= sched_pdsch->rbSize;
+      int id_ue = UE->rnti;
       int rb_allocated = tot_rb - n_rb_sched;
       time_t now = time(NULL);
       char final_string[300] =  {""};
-      sprintf(final_string, "timestamp: %ld, rb_allocated: %d", now, rb_allocated);
+      sprintf(final_string, "timestamp: %ld, rb_allocated: %d, id_ue: %d", now, rb_allocated, id_ue);
       strcpy(myArray[myIndex], final_string);
       printf(myArray[myIndex]);
       fileProva = fopen("prb.csv", "a");
@@ -875,8 +876,7 @@ static void pf_dl(module_id_t module_id,
 
     pthread_t thread; // Variabile per il thread
     int arg = 42; // Argomento per il thread
-    
-    /*
+
     // Creazione del thread
     if (pthread_create(&thread, NULL, threadFunction, &arg))
     {
@@ -890,7 +890,6 @@ static void pf_dl(module_id_t module_id,
 
     remainUEs--;
     iterator++;
-    */
 
   }
 }
