@@ -854,6 +854,7 @@ static void pf_dl(module_id_t module_id,
     //NEW THREAD
     void* threadFunction(void* arg)
     {
+      pthread_mutex_lock(&mutex);
       printf("SONO NEL THREAD\n");
       n_rb_sched -= sched_pdsch->rbSize;
       //int id_ue = UE->rnti;
@@ -867,16 +868,20 @@ static void pf_dl(module_id_t module_id,
       fileProva = fopen("prb.csv", "a");
       if (fileProva == NULL) {
             printf("Impossibile aprire il file.");
+            pthread_mutex_unlock(&mutex); // Sblocca il mutex prima di uscire
             return 1;
       }
       fprintf(fileProva, "%s\n", final_string);
       fclose(fileProva);
       myIndex++;
+      pthread_mutex_unlock(&mutex); // Sblocca il mutex prima di uscire
       return NULL;
     }
 
     pthread_t thread; // Variabile per il thread
     int arg = 42; // Argomento per il thread
+    // Mutex per sincronizzare l'accesso alle risorse condivise
+    pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Creazione del thread
     if (pthread_create(&thread, NULL, threadFunction, &arg))
