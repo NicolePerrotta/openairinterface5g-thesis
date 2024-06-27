@@ -48,8 +48,6 @@ int main(int n, char **v)
   database_event_format f;
   int id_ue;
   int rb_allocated;
-  int offset;
-  int data;
 
   /* write on a socket fails if the other end is closed and we get SIGPIPE */
   if (signal(SIGPIPE, SIG_IGN) == SIG_ERR) abort();
@@ -106,7 +104,6 @@ int main(int n, char **v)
   for (i = 0; i < f.count; i++) {
     G("id_ue",     "int",    id_ue);
     G("rb_allocated", "int",    rb_allocated);
-    printf("id_ue: %d, rb_allocated: %d", id_ue, rb_allocated);
   }
 
   /* a buffer needed to receive events from the nr-softmodem */
@@ -124,15 +121,9 @@ int main(int n, char **v)
        * for the buffer size
        * see in event.h the structure event_arg
        */
-      unsigned char *buf = e.e[data].b;
-      printf("get RB_ALLOCATED event segment %d nb_segments %d offset %d buffer length %d = [",
-             e.e[segment].i,
-             e.e[nb_segments].i,
-             e.e[offset].i,
-             e.e[data].bsize);
-      for (i = 0; i < e.e[data].bsize; i++)
-        printf(" %2.2x", buf[i]);
-      printf("]\n");
+      printf("get RB_ALLOCATED event id_ue: %d rb_allocated: %d\n",
+             e.e[id_ue].i,
+             e.e[rb_allocated].i);
     }
   }
 
