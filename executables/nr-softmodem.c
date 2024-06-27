@@ -610,6 +610,8 @@ static void initialize_agent(ngran_node_t node_type, e2_agent_args_t oai_args)
 char myArray[120000][300] = {0}; //my array for the PRBs
 int myIndex = 0;
 FILE *fileProva = NULL;
+// Mutex per sincronizzare l'accesso alle risorse condivise
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 configmodule_interface_t *uniqCfg = NULL;
 

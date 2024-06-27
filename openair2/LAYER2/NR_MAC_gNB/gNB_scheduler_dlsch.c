@@ -885,8 +885,6 @@ static void pf_dl(module_id_t module_id,
 
     pthread_t thread; // Variabile per il thread
     int arg = 42; // Argomento per il thread
-    // Mutex per sincronizzare l'accesso alle risorse condivise
-    pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Creazione del thread
     if (pthread_create(&thread, NULL, threadFunction, &arg))
