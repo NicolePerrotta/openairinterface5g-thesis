@@ -1220,6 +1220,17 @@ void RCconfig_nr_macrlc(configmodule_interface_t *cfg)
       num_prbbl++;
     }
   }
+
+  /* get list of sst/sd from configuration file */
+  paramdef_t SNSSAIParams[] = GNBSNSSAIPARAMS_DESC;
+  paramlist_def_t SNSSAIParamList = {GNB_CONFIG_STRING_SNSSAI_LIST, NULL, 0};
+  char sstr[100];
+  /* TODO: be sure that %d in the line below is at the right place */
+  sprintf(sstr, "%s.[%d].%s.[0]", GNB_CONFIG_STRING_GNB_LIST, 0, GNB_CONFIG_STRING_PLMN_LIST);
+  config_getlist(config_get_if(), &SNSSAIParamList, SNSSAIParams, sizeof(SNSSAIParams)/sizeof(paramdef_t), sstr);
+  AssertFatal(SNSSAIParamList.numelt > 0, "no slice configuration found (snssaiList in the configuration file)\n");
+  AssertFatal(SNSSAIParamList.numelt <= 1024, "maximum size for slice support list is 1024, see F1AP 38.473 9.3.1.37\n");
+
   paramdef_t MacRLC_Params[] = MACRLCPARAMS_DESC;
   paramlist_def_t MacRLC_ParamList = {CONFIG_STRING_MACRLC_LIST, NULL, 0};
   /* map parameter checking array instances to parameter definition array instances */
@@ -1300,6 +1311,35 @@ void RCconfig_nr_macrlc(configmodule_interface_t *cfg)
     RC.nb_nr_mac_CC = (int *)malloc(RC.nb_nr_macrlc_inst * sizeof(int));
 
     for (j = 0; j < RC.nb_nr_macrlc_inst; j++) {
+
+      // Initializing slices
+      RC.nrmac[j]->SliceConfigFile = strdup(*(MacRLC_ParamList.paramarray[j][MACRLC_SLICE_CONF_IDX].strptr));
+      AssertFatal(SNSSAIParamList.numelt <= MAX_NUM_SLICE, "Slices in config exceeds the slices supported by gNB current implementation \n");
+      RC.nrmac[j]->dl_num_slice = SNSSAIParamList.numelt + 1; // default slice 0, for SRB only traffic
+      NR_Slices_t *SL_info = &RC.nrmac[j]->SL_info;
+      // init default slice
+      SL_info->list[0] = (NR_slice_info_t *)calloc(1, sizeof(NR_slice_info_t));
+      if (!(SL_info->list[0])) AssertFatal(1 == 0, "Cannot add the Slice \n");
+      SL_info->list[0]->sid = 0;
+      SL_info->list[0]->spolicy.min_ratio = 0;
+      SL_info->list[0]->spolicy.max_ratio = 100;
+      // init remaning slices
+      for (int s = 0; s < SNSSAIParamList.numelt; s++) {
+        SL_info->list[s + 1] = (NR_slice_info_t *)calloc(1, sizeof(NR_slice_info_t));
+        if (!(SL_info->list[s + 1])) AssertFatal(1 == 0, "Cannot add the Slice \n");
+        SL_info->list[s + 1]->sid = s + 1;
+        SL_info->list[s + 1]->nssai.sst = *SNSSAIParamList.paramarray[s][GNB_SLICE_SERVICE_TYPE_IDX].uptr;
+        SL_info->list[s + 1]->nssai.sd = *SNSSAIParamList.paramarray[s][GNB_SLICE_DIFFERENTIATOR_IDX].uptr;
+        SL_info->list[s + 1]->spolicy.min_ratio = 0;
+        SL_info->list[s + 1]->spolicy.max_ratio = 100;
+      }
+
+      printf("\n+++++++ Configured slices at MAC +++++++\n");
+      for (int s = 0; s <= SNSSAIParamList.numelt; s++) {
+        printf("Slice id = %d [ sst = %d, sd = %.6x ]\n", SL_info->list[s]->sid, SL_info->list[s]->nssai.sst, SL_info->list[s]->nssai.sd);
+      }
+      printf("+++++++++++++++++++++++++++++++++++++++++++\n");
+
       RC.nb_nr_mac_CC[j] = *(MacRLC_ParamList.paramarray[j][MACRLC_CC_IDX].iptr);
       RC.nrmac[j]->pusch_target_snrx10 = *(MacRLC_ParamList.paramarray[j][MACRLC_PUSCHTARGETSNRX10_IDX].iptr);
       RC.nrmac[j]->pucch_target_snrx10 = *(MacRLC_ParamList.paramarray[j][MACRLC_PUCCHTARGETSNRX10_IDX].iptr);
