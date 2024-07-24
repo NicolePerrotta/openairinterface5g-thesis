@@ -548,6 +548,33 @@ typedef struct nr_lc_config {
   NR_QoS_config_t qos_config[NR_MAX_NUM_QFI];
 } nr_lc_config_t;
 
+typedef struct NR_slice_prb_policy_s {
+  uint8_t dedicated_ratio; // 0 to 100
+  uint8_t min_ratio; // 0 to 100
+  uint8_t max_ratio; // MAx value = 100
+} NR_slice_prb_policy_t;
+
+typedef struct NR_slice_info_s {
+  // id used internally: -1 => not a valid slice, 0 => default slice for SRB only scenario
+  int16_t sid;
+  nssai_t nssai;
+  NR_slice_prb_policy_t spolicy;
+} NR_slice_info_t;
+
+typedef struct nr_macrlc_slice_info_s{
+  /// id used internally: -1 => not a valid slice,0 => default slice for SRB
+  int16_t sid;
+  nssai_t nssai;
+  uint32_t bytes;
+} nr_macrlc_slice_info_t;
+
+typedef struct {
+  /// scheduling control info
+  // last element always NULL
+  pthread_mutex_t mutex;
+  NR_slice_info_t *list[MAX_NUM_SLICE+1];
+} NR_Slices_t;
+
 /*! \brief scheduling control information set through an API */
 #define MAX_CSI_REPORTS 48
 typedef struct {
@@ -639,6 +666,18 @@ typedef struct {
   /// UL HARQ processes that await retransmission
   NR_list_t retrans_ul_harq;
   NR_UE_mac_ce_ctrl_t UE_mac_ce_ctrl; // MAC CE related information
+  /// number of active DL LCs
+  uint8_t dl_lc_num;
+  /// order in which DLSCH scheduler should allocate LCs
+  uint8_t dl_lc_ids[NR_MAX_NUM_LCID];
+  /// NSSAIs
+
+  nr_macrlc_slice_info_t dl_sl_info[NR_MAX_NUM_LCID];
+  nr_macrlc_slice_info_t avail_slice_list[MAX_NUM_PDU_SESSION+1];
+  uint16_t num_slice_d;
+  int16_t slice_for_this_sched;
+  bool alreadySched;
+  //uint32_t num_total_bytes_slice[MAX_NUM_PDU_SESSION+1];
 
   /// Timer for RRC processing procedures
   uint32_t rrc_processing_timer;
@@ -654,6 +693,18 @@ typedef struct {
   uicc_t *uicc;
 } NRUEcontext_t;
 
+typedef struct nr_slice_stats_s{
+  int16_t sid;
+  uint64_t total_bytes;
+  uint32_t current_bytes;
+  uint64_t total_sdu_bytes;
+  uint32_t total_rbs;
+  uint32_t total_rbs_retx;
+  uint32_t num_mac_sdu;
+  uint32_t current_rbs;
+} nr_slice_stats_t;
+
+
 typedef struct NR_mac_dir_stats {
   uint64_t lc_bytes[64];
   uint64_t rounds[8];
@@ -665,6 +716,7 @@ typedef struct NR_mac_dir_stats {
   uint32_t total_rbs_retx;
   uint32_t num_mac_sdu;
   uint32_t current_rbs;
+  nr_slice_stats_t slice[MAX_NUM_PDU_SESSION+1];
 } NR_mac_dir_stats_t;
 
 typedef struct NR_mac_stats {
@@ -725,6 +777,7 @@ typedef struct {
   float ul_thr_ue;
   float dl_thr_ue;
   long pdsch_HARQ_ACK_Codebook;
+  float dl_thr_ue_slice[MAX_NUM_PDU_SESSION+1];
 } NR_UE_info_t;
 
 typedef struct {
@@ -738,6 +791,8 @@ typedef struct {
 } NR_UEs_t;
 
 #define UE_iterator(BaSe, VaR) NR_UE_info_t ** VaR##pptr=BaSe, *VaR; while ((VaR=*(VaR##pptr++)))
+
+#define SL_iterator(BaSe, VaR) NR_slice_info_t ** VaR##pptr=BaSe, *VaR; while ((VaR=*(VaR##pptr++)))
 
 typedef void (*nr_pp_impl_dl)(module_id_t mod_id,
                               frame_t frame,
@@ -870,6 +925,11 @@ typedef struct gNB_MAC_INST_s {
   int16_t frame;
 
   pthread_mutex_t sched_lock;
+
+  //slicing
+  uint8_t dl_num_slice;
+  NR_Slices_t SL_info;
+  char *SliceConfigFile;
 
 } gNB_MAC_INST;
 
