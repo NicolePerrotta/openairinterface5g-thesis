@@ -1321,6 +1321,7 @@ void RCconfig_nr_macrlc(configmodule_interface_t *cfg)
       SL_info->list[0] = (NR_slice_info_t *)calloc(1, sizeof(NR_slice_info_t));
       if (!(SL_info->list[0])) AssertFatal(1 == 0, "Cannot add the Slice \n");
       SL_info->list[0]->sid = 0;
+      SL_info->list[0]->spolicy.dedicated_ratio = 0;
       SL_info->list[0]->spolicy.min_ratio = 0;
       SL_info->list[0]->spolicy.max_ratio = 100;
       // init remaning slices
@@ -1330,6 +1331,7 @@ void RCconfig_nr_macrlc(configmodule_interface_t *cfg)
         SL_info->list[s + 1]->sid = s + 1;
         SL_info->list[s + 1]->nssai.sst = *SNSSAIParamList.paramarray[s][GNB_SLICE_SERVICE_TYPE_IDX].uptr;
         SL_info->list[s + 1]->nssai.sd = *SNSSAIParamList.paramarray[s][GNB_SLICE_DIFFERENTIATOR_IDX].uptr;
+        SL_info->list[s + 1]->spolicy.dedicated_ratio = 0;
         SL_info->list[s + 1]->spolicy.min_ratio = 0;
         SL_info->list[s + 1]->spolicy.max_ratio = 100;
       }
