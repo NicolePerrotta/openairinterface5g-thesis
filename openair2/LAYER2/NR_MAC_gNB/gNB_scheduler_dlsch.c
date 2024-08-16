@@ -660,6 +660,16 @@ void nr_update_slice_policy(module_id_t module_id, frame_t frame, sub_frame_t sl
         sd = 0xffffff;
     }
 
+    if (dedicated_ratio > min_ratio) {
+      LOG_W(NR_MAC, "min_ratio %d < dedicated_ratio %d, set min_ratio = dedicated_ratio\n", min_ratio, dedicated_ratio);
+      min_ratio = dedicated_ratio;
+    }
+
+    if (min_ratio > max_ratio) {
+      LOG_W(NR_MAC, "max_ratio %d < min_ratio %d, set min_ratio = max_ratio\n", max_ratio, min_ratio);
+      max_ratio = min_ratio;
+    }
+
     SL_iterator(SL_info->list, SL)
     {
       if (SL->nssai.sst == sst && SL->nssai.sd == sd) {
@@ -1264,6 +1274,7 @@ void dl_sched_unit(module_id_t module_id,
 
   for(int s1=0; s1 < mac->dl_num_slice; s1++){
     NR_slice_info_t *SL= SL_sched[s1].SL;
+    SL_sched[s1].dedi_prbs= (n_rb_sched_init * SL->spolicy.dedicated_ratio)/100;
     SL_sched[s1].min_prbs= (n_rb_sched_init * SL->spolicy.min_ratio)/100;
     SL_sched[s1].max_prbs = n_rb_sched_init;
   }
@@ -1649,23 +1660,23 @@ static void nr_fr1_dlsch_preprocessor(module_id_t module_id, frame_t frame, sub_
   //   printf("\n");
   // }
 
-  // dl_sched_unit(module_id, 
-  //               frame, 
-  //               slot, 
-  //               UE_info->list, 
-  //               max_sched_ues, 
-  //               n_rb_sched, 
-  //               rballoc_mask, 
-  //               SL_sched);
+  dl_sched_unit(module_id, 
+                frame, 
+                slot, 
+                UE_info->list, 
+                max_sched_ues, 
+                n_rb_sched, 
+                rballoc_mask, 
+                SL_sched);
 
   /* proportional fair scheduling algorithm */
-  pf_dl(module_id,
-        frame,
-        slot,
-        UE_info->list,
-        max_sched_ues,
-        n_rb_sched,
-        rballoc_mask);
+  // pf_dl(module_id,
+  //       frame,
+  //       slot,
+  //       UE_info->list,
+  //       max_sched_ues,
+  //       n_rb_sched,
+  //       rballoc_mask);
 }
 
 nr_pp_impl_dl nr_init_fr1_dlsch_preprocessor(int CC_id) {
