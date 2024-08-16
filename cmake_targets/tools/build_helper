@@ -618,6 +618,7 @@ check_install_oai_software() {
       libffi-devel \
       lksctp-tools \
       lksctp-tools-devel \
+      libjson-c-dev \
       libtool \
       ninja-build \
       make \
