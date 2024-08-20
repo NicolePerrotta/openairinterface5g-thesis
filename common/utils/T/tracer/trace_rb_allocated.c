@@ -34,6 +34,14 @@ void usage(void)
   exit(1);
 }
 
+FILE* file_prb = NULL;
+int run = 1;
+
+void exit_file(void)
+{
+  run = 0;
+}
+
 int main(int n, char **v)
 {
   char *database_filename = NULL;
@@ -46,11 +54,20 @@ int main(int n, char **v)
   int socket;
   int rb_allocated_id;
   database_event_format f;
-  int id_ue;
-  int rb_allocated;
+  int id_ue = 0; // set to remove the warning, will be changed eventually by the G macro
+  int rb_allocated = 0;  // set to remove the warning, will be changed eventually by the G macro
 
+  file_prb = fopen("prb.csv", "w");
+  if (file_prb == NULL)
+  {
+    perror("Error in file opening.");
+    abort();
+  }
+      
+  fprintf(file_prb, "timestamp,id_ue,rb_allocated\n");
+  
   /* write on a socket fails if the other end is closed and we get SIGPIPE */
-  if (signal(SIGPIPE, SIG_IGN) == SIG_ERR) abort();
+  if (signal(SIGPIPE, SIG_IGN) == SIG_ERR) exit_file();
 
   /* parse command line options */
   for (i = 1; i < n; i++) {
@@ -110,7 +127,7 @@ int main(int n, char **v)
   OBUF ebuf = { .osize = 0, .omaxsize = 0, .obuf = NULL };
 
   /* read events */
-  while (1) {
+  while (run) {
     event e;
     e = get_event(socket, &ebuf, database);
     if (e.type == -1) break;
@@ -122,10 +139,13 @@ int main(int n, char **v)
        * see in event.h the structure event_arg
        */
       printf("get RB_ALLOCATED event id_ue: %d rb_allocated: %d\n",
-             e.e[id_ue].i,
-             e.e[rb_allocated].i);
+             e.e[id_ue].i, e.e[rb_allocated].i);
+      fprintf(file_prb, "%ld,%d,%d\n", time(NULL), e.e[id_ue].i, e.e[rb_allocated].i);
     }
   }
+    
+
+  fclose(file_prb);
 
   return 0;
 }
