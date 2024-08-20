@@ -834,9 +834,8 @@ static void pf_dl(module_id_t module_id,
     /* transmissions: directly allocate */
     
     n_rb_sched -= sched_pdsch->rbSize;
-    int id_ue = UE->rnti;
-    int rb_allocated = tot_rb - n_rb_sched;
-    T(T_RB_ALLOCATED, T_INT(id_ue), T_INT(rb_allocated));
+    int rb_allocated_ue = tot_rb - n_rb_sched;
+    T(T_RB_ALLOCATED, T_INT(rb_allocated_ue), T_INT(rnti));
 
     for (int rb = 0; rb < sched_pdsch->rbSize; rb++)
       rballoc_mask[rb + sched_pdsch->rbStart] ^= slbitmap;
@@ -844,6 +843,7 @@ static void pf_dl(module_id_t module_id,
     remainUEs--;
     iterator++;
   }
+  //T(T_RB_ALLOCATED, T_INT(rb_allocated_ue), T_INT(0));
 }
 
 static void nr_fr1_dlsch_preprocessor(module_id_t module_id, frame_t frame, sub_frame_t slot)
@@ -916,7 +916,7 @@ nr_pp_impl_dl nr_init_fr1_dlsch_preprocessor(int CC_id) {
    * to recalculate all these values just, and therefore we provide a look-up
    * table which should approximately give us the TBsize */
   for (int mcsTableIdx = 0; mcsTableIdx < 3; ++mcsTableIdx) {
-    for (int mcs = 0; mcs < 29; ++mcs) {
+    for (int mcs = 0; mcs < 29; ++mcs) { //max_mcs = 29?
       if (mcs > 27 && mcsTableIdx == 1)
         continue;
 
@@ -1028,7 +1028,7 @@ void nr_schedule_ue_spec(module_id_t module_id,
           tda_info->startSymbolIndex,
           tda_info->nrOfSymbols,
           dmrs_parms->dl_dmrs_symb_pos,
-          sched_pdsch->mcs,
+          sched_pdsch->mcs, //this?
           nrOfLayers,
           TBS,
           current_harq_pid,
