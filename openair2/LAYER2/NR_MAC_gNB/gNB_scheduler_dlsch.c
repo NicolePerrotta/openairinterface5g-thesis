@@ -953,7 +953,7 @@ void slice_prb_estimate(module_id_t module_id,
   }
 }
 
-void pf_dl_slice(module_id_t module_id,
+static void pf_dl_slice(module_id_t module_id,
                 frame_t frame,
                 sub_frame_t slot,
                 NR_UE_info_t **UE_list,
@@ -1021,7 +1021,8 @@ void pf_dl_slice(module_id_t module_id,
       }
 
     /* Check DL buffer and skip this UE if no bytes and no TA necessary */
-    if (bytes == 0 && frame != (sched_ctrl->ta_frame + 10) % 1024)
+    if (sched_ctrl->num_total_bytes == 0 && frame != (sched_ctrl->ta_frame + 100) % 1024)
+    // if (bytes == 0 && frame != (sched_ctrl->ta_frame + 100) % 1024)
       continue;
 
     /* Calculate coeff */
@@ -1196,7 +1197,7 @@ void pf_dl_slice(module_id_t module_id,
     n_rb_sched_s += sched_pdsch->rbSize;
     n_rb_remain_s -= sched_pdsch->rbSize;
 
-    if ((frame & 127) == 0 && slot == 0)
+    if ((frame & 127) == 0 && (slot & 1) == 0)
       printf("[UE %04x][%4d.%2d] slice %d , TB_size %u mcs %d RBs %d \n", 
               iterator->UE->rnti, frame, slot, 
               SL->sid, sched_pdsch->tb_size,
@@ -1205,112 +1206,12 @@ void pf_dl_slice(module_id_t module_id,
     for (int rb = 0; rb < sched_pdsch->rbSize; rb++)
       rballoc_mask[rb + sched_pdsch->rbStart] ^= slbitmap;
 
-    remainUEs--;
+    (*remainUEs)--;
     iterator++;
   }
 
   /*Update the slice min_prbs with the RBs scheduled*/
   SL_sched->min_prbs = n_rb_sched_s;
-}
-
-void dl_sched_unit(module_id_t module_id,
-                  frame_t frame,
-                  sub_frame_t slot,
-                  NR_UE_info_t **UE_list,
-                  int max_num_ue,
-                  int n_rb_sched,
-                  uint16_t *rballoc_mask,
-                  SLsched_t *SL_sched)
-{
-
-  gNB_MAC_INST *mac = RC.nrmac[module_id];
-  int remainUEs = max_num_ue;
-
-  /* First stage: Schedule all retransmissions */
-  UE_iterator(UE_list, UE_p) {
-
-    if (UE_p->Msg4_ACKed != true)
-      continue;
-
-    NR_UE_sched_ctrl_t *sched_ctrl = &UE_p->UE_sched_ctrl;
-
-    if (sched_ctrl->ul_failure==1)
-      continue;
-
-    sched_ctrl->alreadySched = 0;
-
-    NR_sched_pdsch_t *sched_pdsch = &sched_ctrl->sched_pdsch;
-    /* get the PID of a HARQ process awaiting retrnasmission, or -1 otherwise */
-    sched_pdsch->dl_harq_pid = sched_ctrl->retrans_dl_harq.head;
-
-    if (remainUEs == 0)
-      continue;
-
-    /* retransmission */
-    if (sched_pdsch->dl_harq_pid >= 0) {
-      /* Allocate retransmission */
-      bool r = allocate_dl_retransmission(module_id, frame, slot, rballoc_mask, &n_rb_sched, UE_p, sched_pdsch->dl_harq_pid);
-
-      sched_ctrl->alreadySched = 1; //This UE is scheduled for Tx in stage 1, to be skipped in stage 2
-
-      if (!r) {
-        LOG_D(NR_MAC, "[UE %04x][%4d.%2d] DL retransmission could not be allocated\n",
-			       UE_p->rnti,
-					   frame,
-					   slot);
-        continue;
-	    }
-
-      remainUEs--;
-    }
-  }
-
-  /* Second stage: Schedule all new transmissions
-   * for UEs that were not scheduled in first stage*/
-
-  /* Depending on max_ratio, min_ratio, we calculate the maximum number of RBs a slice can have*/
-  int n_rb_sched_init = n_rb_sched;
-  int n_rb_sched_s_tot = 0;
-
-  for(int s1=0; s1 < mac->dl_num_slice; s1++){
-    NR_slice_info_t *SL= SL_sched[s1].SL;
-    SL_sched[s1].dedi_prbs= (n_rb_sched_init * SL->spolicy.dedicated_ratio)/100;
-    SL_sched[s1].min_prbs= (n_rb_sched_init * SL->spolicy.min_ratio)/100;
-    SL_sched[s1].max_prbs = n_rb_sched_init;
-  }
-
-  // Scheduling of slices
-  for(int i =0; i < mac->dl_num_slice; i++){
-
-	  NR_slice_info_t *SL_i= SL_sched[i].SL;
-
-    // Update max_prbs for the current slice based on RBs used by previous slices
-
-    for(int j=0;j< mac->dl_num_slice ;j++){
-      NR_slice_info_t *SL_j= SL_sched[j].SL;
-      if(SL_j->sid != SL_i->sid) {
-        SL_sched[i].max_prbs -= SL_sched[j].min_prbs;
-      }
-    }
-
-    if (SL_sched[i].max_prbs > ((n_rb_sched_init * SL_i->spolicy.max_ratio) / 100)) {
-      SL_sched[i].max_prbs = (n_rb_sched_init * SL_i->spolicy.max_ratio) / 100;
-    }
-
-    // pf scheduling within i-th slice
-    pf_dl_slice(module_id,
-                frame,
-                slot,
-                UE_list,
-                &remainUEs,
-                &n_rb_sched,
-                rballoc_mask,
-                SL_sched+i);
-
-    n_rb_sched_s_tot += SL_sched[i].min_prbs;
-
-    if (n_rb_sched_s_tot > n_rb_sched_init ) AssertFatal(1==0,"PRB Violation \n");
-  }
 }
 
 static void pf_dl(module_id_t module_id,
@@ -1580,6 +1481,117 @@ static void pf_dl(module_id_t module_id,
   //T(T_RB_ALLOCATED, T_INT(rb_allocated_ue), T_INT(0)); //OLD, NEVER USED
 }
 
+
+static void dl_sched_unit(module_id_t module_id,
+                  frame_t frame,
+                  sub_frame_t slot,
+                  NR_UE_info_t **UE_list,
+                  int max_num_ue,
+                  int n_rb_sched,
+                  uint16_t *rballoc_mask,
+                  SLsched_t *SL_sched)
+{
+
+  gNB_MAC_INST *mac = RC.nrmac[module_id];
+  int remainUEs = max_num_ue;
+
+  /* First stage: Schedule all retransmissions */
+  UE_iterator(UE_list, UE_p) {
+
+    if (UE_p->Msg4_ACKed != true)
+      continue;
+
+    NR_UE_sched_ctrl_t *sched_ctrl = &UE_p->UE_sched_ctrl;
+
+    if (sched_ctrl->ul_failure==1)
+      continue;
+
+    sched_ctrl->alreadySched = 0;
+
+    NR_sched_pdsch_t *sched_pdsch = &sched_ctrl->sched_pdsch;
+    /* get the PID of a HARQ process awaiting retrnasmission, or -1 otherwise */
+    sched_pdsch->dl_harq_pid = sched_ctrl->retrans_dl_harq.head;
+
+    if (remainUEs == 0)
+      continue;
+
+    /* retransmission */
+    if (sched_pdsch->dl_harq_pid >= 0) {
+      /* Allocate retransmission */
+      bool r = allocate_dl_retransmission(module_id, frame, slot, rballoc_mask, &n_rb_sched, UE_p, sched_pdsch->dl_harq_pid);
+
+      sched_ctrl->alreadySched = 1; //This UE is scheduled for Tx in stage 1, to be skipped in stage 2
+
+      if (!r) {
+        LOG_D(NR_MAC, "[UE %04x][%4d.%2d] DL retransmission could not be allocated\n",
+			       UE_p->rnti,
+					   frame,
+					   slot);
+        continue;
+	    }
+      /* reduce max_num_ue once we are sure UE can be allocated, i.e., has CCE */
+      remainUEs--;
+
+    }
+  }
+
+  /* Second stage: Schedule all new transmissions
+   * for UEs that were not scheduled in first stage*/
+
+  /* Depending on max_ratio, min_ratio, we calculate the maximum number of RBs a slice can have*/
+  int n_rb_sched_init = n_rb_sched;
+  int n_rb_sched_s_tot = 0;
+
+  for(int i=0; i < mac->dl_num_slice; i++){
+    NR_slice_info_t *SL= SL_sched[i].SL;
+    SL_sched[i].dedi_prbs= (n_rb_sched_init * SL->spolicy.dedicated_ratio)/100;
+    SL_sched[i].min_prbs= (n_rb_sched_init * SL->spolicy.min_ratio)/100;
+    SL_sched[i].max_prbs = n_rb_sched_init;
+  }
+
+  // Scheduling of slices
+  for(int i =0; i < mac->dl_num_slice; i++){
+
+	  NR_slice_info_t *SL_i= SL_sched[i].SL;
+
+    // Update max_prbs for the current slice based on RBs used by previous slices
+
+    for(int j=0;j< mac->dl_num_slice ;j++){
+      NR_slice_info_t *SL_j= SL_sched[j].SL;
+      if(SL_j->sid != SL_i->sid) {
+        SL_sched[i].max_prbs -= SL_sched[j].min_prbs;
+      }
+    }
+
+    if (SL_sched[i].max_prbs > ((n_rb_sched_init * SL_i->spolicy.max_ratio) / 100)) {
+      SL_sched[i].max_prbs = (n_rb_sched_init * SL_i->spolicy.max_ratio) / 100;
+    }
+
+    // pf scheduling within i-th slice
+    pf_dl_slice(module_id,
+                frame,
+                slot,
+                UE_list,
+                &remainUEs,
+                &n_rb_sched,
+                rballoc_mask,
+                SL_sched+i);
+
+    // pf_dl_refactor(module_id,
+    //       frame,
+    //       slot,
+    //       UE_list,
+    //       &remainUEs,
+    //       &n_rb_sched,
+    //       rballoc_mask,
+    //       SL_sched+i);
+
+    n_rb_sched_s_tot += SL_sched[i].min_prbs;
+
+    if (n_rb_sched_s_tot > n_rb_sched_init ) AssertFatal(1==0,"PRB Violation \n");
+  }
+}
+
 static void nr_fr1_dlsch_preprocessor(module_id_t module_id, frame_t frame, sub_frame_t slot)
 {
   NR_UEs_t *UE_info = &RC.nrmac[module_id]->UE_info;
@@ -1652,14 +1664,6 @@ static void nr_fr1_dlsch_preprocessor(module_id_t module_id, frame_t frame, sub_
   // Sorted slice array to be used while scheduling
   qsort(SL_sched, sizeofArray(SL_sched), sizeof(SLsched_t), compare_s);
 
-  // if ((frame & 127) == 0 && slot == 0){
-  //   printf("Frame Slot[%d,%d]",frame,slot);
-  //   for(int i =0; i < RC.nrmac[module_id]->dl_num_slice ;i++){
-  //     printf("Slice %d Est_Prbs %d ",SL_sched[i].SL->sid,SL_sched[i].prb_est);
-  //   }
-  //   printf("\n");
-  // }
-
   dl_sched_unit(module_id, 
                 frame, 
                 slot, 
@@ -1668,15 +1672,6 @@ static void nr_fr1_dlsch_preprocessor(module_id_t module_id, frame_t frame, sub_
                 n_rb_sched, 
                 rballoc_mask, 
                 SL_sched);
-
-  /* proportional fair scheduling algorithm */
-  // pf_dl(module_id,
-  //       frame,
-  //       slot,
-  //       UE_info->list,
-  //       max_sched_ues,
-  //       n_rb_sched,
-  //       rballoc_mask);
 }
 
 nr_pp_impl_dl nr_init_fr1_dlsch_preprocessor(int CC_id) {
