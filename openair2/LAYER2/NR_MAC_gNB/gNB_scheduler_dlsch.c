@@ -698,7 +698,7 @@ void nr_update_slice_policy(module_id_t module_id, frame_t frame, sub_frame_t sl
     }
   }
 
-  for (int i = 0; i < mac->dl_num_slice; i++) {
+  for (int i = 1; i < mac->dl_num_slice; i++) {
     LOG_I(NR_MAC, "Slice %d, NSSAI %d.%.6x, rrmPolicy.dedicated_ratio %d, rrmPolicy.min_ratio %d, rrmPolicy.max_ratio %d \n",
           i,
           SL_info->list[i]->nssai.sst,
@@ -788,7 +788,7 @@ void nr_get_ue_active_slice_list(module_id_t module_id, frame_t frame, sub_frame
     //Logging the active slice sessions
     if ((slot == 0) && (frame & 127) == 0) {
       printf("Active slices for UE %x = [",UE->rnti);
-      for (int k=0;k < sched_ctrl->num_slice_d;k++){
+      for (int k=1;k < sched_ctrl->num_slice_d;k++){
         printf(" %d ",sched_ctrl->avail_slice_list[k].sid);
       }
       printf("]\n");
@@ -1197,7 +1197,7 @@ static void pf_dl_slice(module_id_t module_id,
     n_rb_sched_s += sched_pdsch->rbSize;
     n_rb_remain_s -= sched_pdsch->rbSize;
 
-    if ((frame & 127) == 0 && (slot & 1) == 0)
+    if ((frame & 127) == 0)
       printf("[UE %04x][%4d.%2d] slice %d , TB_size %u mcs %d RBs %d \n", 
               iterator->UE->rnti, frame, slot, 
               SL->sid, sched_pdsch->tb_size,
@@ -1542,7 +1542,7 @@ static void dl_sched_unit(module_id_t module_id,
   int n_rb_sched_init = n_rb_sched;
   int n_rb_sched_s_tot = 0;
 
-  for(int i=0; i < mac->dl_num_slice; i++){
+  for(int i=1; i < mac->dl_num_slice; i++){
     NR_slice_info_t *SL= SL_sched[i].SL;
     SL_sched[i].dedi_prbs= (n_rb_sched_init * SL->spolicy.dedicated_ratio)/100;
     SL_sched[i].min_prbs= (n_rb_sched_init * SL->spolicy.min_ratio)/100;
@@ -1576,15 +1576,6 @@ static void dl_sched_unit(module_id_t module_id,
                 &n_rb_sched,
                 rballoc_mask,
                 SL_sched+i);
-
-    // pf_dl_refactor(module_id,
-    //       frame,
-    //       slot,
-    //       UE_list,
-    //       &remainUEs,
-    //       &n_rb_sched,
-    //       rballoc_mask,
-    //       SL_sched+i);
 
     n_rb_sched_s_tot += SL_sched[i].min_prbs;
 
