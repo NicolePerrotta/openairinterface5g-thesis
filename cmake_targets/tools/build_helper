@@ -591,6 +591,7 @@ check_install_oai_software() {
 	libconfig-dev \
 	libsctp-dev  \
 	libssl-dev  \
+        libjson-c-dev \
 	libtool  \
 	patch \
 	openssl \
