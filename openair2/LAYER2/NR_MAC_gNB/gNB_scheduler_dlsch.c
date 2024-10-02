@@ -674,6 +674,7 @@ static void pf_dl(module_id_t module_id,
         sched_pdsch->mcs = max_mcs;
       else
         sched_pdsch->mcs = get_mcs_from_bler(bo, stats, &sched_ctrl->dl_bler_stats, max_mcs, frame);
+
       sched_pdsch->nrOfLayers = get_dl_nrOfLayers(sched_ctrl, current_BWP->dci_format);
       sched_pdsch->pm_index =
           get_pm_index(mac, UE, current_BWP->dci_format, sched_pdsch->nrOfLayers, mac->radio_config.pdsch_AntennaPorts.XP);
@@ -839,7 +840,8 @@ static void pf_dl(module_id_t module_id,
     
     n_rb_sched -= sched_pdsch->rbSize;
     int rb_allocated_ue = tot_rb - n_rb_sched;
-    T(T_RB_ALLOCATED, T_INT(rb_allocated_ue), T_INT(rnti));
+    int mcs = sched_pdsch->mcs; //NEW
+    T(T_RB_ALLOCATED, T_INT(rnti), T_INT(rb_allocated_ue), T_INT(mcs)); //NEW
 
     for (int rb = 0; rb < sched_pdsch->rbSize; rb++)
       rballoc_mask[rb + sched_pdsch->rbStart] ^= slbitmap;
@@ -847,7 +849,7 @@ static void pf_dl(module_id_t module_id,
     remainUEs--;
     iterator++;
   }
-  //T(T_RB_ALLOCATED, T_INT(rb_allocated_ue), T_INT(0));
+  //T(T_RB_ALLOCATED, T_INT(rb_allocated_ue), T_INT(0)); //OLD, NEVER USED
 }
 
 static void nr_fr1_dlsch_preprocessor(module_id_t module_id, frame_t frame, sub_frame_t slot)
