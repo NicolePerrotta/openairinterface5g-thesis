@@ -35,6 +35,7 @@ void usage(void)
 }
 
 FILE* file_prb = NULL;
+FILE* file_mcs = NULL; //NEW
 int run = 1;
 
 void exit_file(void)
@@ -56,6 +57,7 @@ int main(int n, char **v)
   database_event_format f;
   int id_ue = 0; // set to remove the warning, will be changed eventually by the G macro
   int rb_allocated = 0;  // set to remove the warning, will be changed eventually by the G macro
+  int mcs = 0; // set to remove the warning, will be changed eventually by the G macro //NEW
 
   file_prb = fopen("prb.csv", "w");
   if (file_prb == NULL)
@@ -64,7 +66,8 @@ int main(int n, char **v)
     abort();
   }
       
-  fprintf(file_prb, "timestamp,id_ue,rb_allocated\n");
+  //fprintf(file_prb, "timestamp,id_ue,rb_allocated\n");
+  fprintf(file_prb, "Unix Time,id_ue,rb_allocated,mcs\n"); //NEW
   
   /* write on a socket fails if the other end is closed and we get SIGPIPE */
   if (signal(SIGPIPE, SIG_IGN) == SIG_ERR) exit_file();
@@ -121,6 +124,7 @@ int main(int n, char **v)
   for (i = 0; i < f.count; i++) {
     G("id_ue",     "int",    id_ue);
     G("rb_allocated", "int",    rb_allocated);
+    G("mcs", "int",    mcs); //NEW
   }
 
   /* a buffer needed to receive events from the nr-softmodem */
@@ -138,14 +142,22 @@ int main(int n, char **v)
        * for the buffer size
        * see in event.h the structure event_arg
        */
-      printf("get RB_ALLOCATED event id_ue: %d rb_allocated: %d\n",
-             e.e[id_ue].i, e.e[rb_allocated].i);
-      fprintf(file_prb, "%ld,%d,%d\n", time(NULL), e.e[id_ue].i, e.e[rb_allocated].i);
+
+      //printf("get RB_ALLOCATED event id_ue: %d rb_allocated: %d\n",
+      //       e.e[id_ue].i, e.e[rb_allocated].i);
+      //fprintf(file_prb, "%ld,%d,%d\n", time(NULL), e.e[id_ue].i, e.e[rb_allocated].i);
+
+      //NEW start
+      printf("get RB_ALLOCATED event id_ue: %d rb_allocated: %d, mcs: %d\n",
+             e.e[id_ue].i, e.e[rb_allocated].i, e.e[mcs].i);
+      fprintf(file_prb, "%ld,%d,%d,%d\n", time(NULL), e.e[id_ue].i, e.e[rb_allocated].i, e.e[mcs].i);
+      //NEW end
     }
   }
     
 
   fclose(file_prb);
+  fclose(file_mcs); //NEW
 
   return 0;
 }
