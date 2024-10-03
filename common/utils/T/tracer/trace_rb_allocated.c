@@ -58,6 +58,7 @@ int main(int n, char **v)
   int id_ue = 0; // set to remove the warning, will be changed eventually by the G macro
   int rb_allocated = 0;  // set to remove the warning, will be changed eventually by the G macro
   int mcs = 0; // set to remove the warning, will be changed eventually by the G macro //NEW
+  int rsrp = 0; // set to remove the warning, will be changed eventually by the G macro //NEW 2
 
   file_prb = fopen("prb.csv", "w");
   if (file_prb == NULL)
@@ -67,7 +68,7 @@ int main(int n, char **v)
   }
       
   //fprintf(file_prb, "timestamp,id_ue,rb_allocated\n");
-  fprintf(file_prb, "Unix Time,id_ue,rb_allocated,mcs\n"); //NEW
+  fprintf(file_prb, "Unix Time,id_ue,rb_allocated,mcs,rsrp\n"); //NEW
   
   /* write on a socket fails if the other end is closed and we get SIGPIPE */
   if (signal(SIGPIPE, SIG_IGN) == SIG_ERR) exit_file();
@@ -125,6 +126,7 @@ int main(int n, char **v)
     G("id_ue",     "int",    id_ue);
     G("rb_allocated", "int",    rb_allocated);
     G("mcs", "int",    mcs); //NEW
+    G("rsrp", "int",    rsrp); //NEW
   }
 
   /* a buffer needed to receive events from the nr-softmodem */
