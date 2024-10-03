@@ -180,7 +180,7 @@ ID = RB_ALLOCATED
     FORMAT = int,id_ue : int,rb_allocated : int,mcs : int,rsrp
     
 #RLC logs
-ID = ENB_RLC_DL
+ID = ENB_RLC_DL 
     DESC = RLC downlink data
     GROUP = ALL:RLC:ENB
     FORMAT = int,eNB_ID : int,rnti : int,rb_id : int,length
