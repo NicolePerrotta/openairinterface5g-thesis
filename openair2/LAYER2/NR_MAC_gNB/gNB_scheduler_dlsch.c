@@ -670,10 +670,18 @@ static void pf_dl(module_id_t module_id,
       const NR_bler_options_t *bo = &mac->dl_bler;
       const int max_mcs_table = current_BWP->mcsTableIdx == 1 ? 27 : 28;
       const int max_mcs = min(sched_ctrl->dl_max_mcs, max_mcs_table);
+
+
+      // New version
+      sched_pdsch->mcs = min(bo->max_mcs, max_mcs);
+      sched_ctrl->dl_bler_stats.mcs = sched_pdsch->mcs;
+
+      /* Old version
       if (bo->harq_round_max == 1)
         sched_pdsch->mcs = max_mcs;
       else
         sched_pdsch->mcs = get_mcs_from_bler(bo, stats, &sched_ctrl->dl_bler_stats, max_mcs, frame);
+      */
 
       sched_pdsch->nrOfLayers = get_dl_nrOfLayers(sched_ctrl, current_BWP->dci_format);
       sched_pdsch->pm_index =
@@ -840,8 +848,10 @@ static void pf_dl(module_id_t module_id,
     
     n_rb_sched -= sched_pdsch->rbSize;
     int rb_allocated_ue = tot_rb - n_rb_sched;
-    int mcs = sched_pdsch->mcs; //NEW
-    T(T_RB_ALLOCATED, T_INT(rnti), T_INT(rb_allocated_ue), T_INT(mcs)); //NEW
+    int mcs = sched_pdsch->mcs; //NEW 1
+    NR_mac_stats_t *stats = &UE->mac_stats; //NEW 2
+    int rsrp = stats->num_rsrp_meas; //NEW 2
+    T(T_RB_ALLOCATED, T_INT(rnti), T_INT(rb_allocated_ue), T_INT(mcs), T_INT(rsrp)); //NEW
 
     for (int rb = 0; rb < sched_pdsch->rbSize; rb++)
       rballoc_mask[rb + sched_pdsch->rbStart] ^= slbitmap;
