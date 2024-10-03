@@ -54,7 +54,7 @@ int main(int n, char **v)
   int i;
   int socket;
   int rb_allocated_id;
-  database_event_format f;
+  database_event_format f; 
   int id_ue = 0; // set to remove the warning, will be changed eventually by the G macro
   int rb_allocated = 0;  // set to remove the warning, will be changed eventually by the G macro
   int mcs = 0; // set to remove the warning, will be changed eventually by the G macro //NEW
