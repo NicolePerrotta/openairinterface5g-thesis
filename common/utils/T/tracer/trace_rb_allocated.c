@@ -136,7 +136,7 @@ int main(int n, char **v)
   while (run) {
     event e;
     e = get_event(socket, &ebuf, database);
-    if (e.type == -1) break;
+    if (e.type == -1) break; 
     if (e.type == rb_allocated_id) {
       /* this is how to access the elements of the RB_ALLOCATED trace.
        * we use e.e[<element>] and then the correct suffix, here

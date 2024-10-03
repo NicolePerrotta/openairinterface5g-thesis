@@ -844,7 +844,7 @@ static void pf_dl(module_id_t module_id,
     
     n_rb_sched -= sched_pdsch->rbSize;
     int rb_allocated_ue = tot_rb - n_rb_sched;
-    int mcs = sched_pdsch->mcs; //NEW 1
+    int mcs = sched_pdsch->mcs; //NEW 1 
     NR_mac_stats_t *stats = &UE->mac_stats; //NEW 2
     int rsrp = stats->num_rsrp_meas; //NEW 2
     T(T_RB_ALLOCATED, T_INT(rnti), T_INT(rb_allocated_ue), T_INT(mcs), T_INT(rsrp)); //NEW
