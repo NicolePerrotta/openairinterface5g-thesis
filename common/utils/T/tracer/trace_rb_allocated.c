@@ -126,7 +126,7 @@ int main(int n, char **v)
     G("id_ue",     "int",    id_ue);
     G("rb_allocated", "int",    rb_allocated);
     G("mcs", "int",    mcs); //NEW
-    G("rsrp", "int",    rsrp); //NEW
+    G("rsrp", "int",    rsrp); //NEW 
   }
 
   /* a buffer needed to receive events from the nr-softmodem */
