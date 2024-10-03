@@ -843,7 +843,7 @@ static void pf_dl(module_id_t module_id,
     sched_pdsch->rbSize = rbSize;
     sched_pdsch->rbStart = rbStart;
     sched_pdsch->tb_size = TBS;
-
+  
     /* transmissions: directly allocate */
     
     n_rb_sched -= sched_pdsch->rbSize;
