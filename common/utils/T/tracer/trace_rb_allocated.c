@@ -35,7 +35,7 @@ void usage(void)
 }
 
 FILE* file_prb = NULL;
-FILE* file_mcs = NULL; //NEW
+//FILE* file_mcs = NULL; //NEW
 int run = 1;
 
 void exit_file(void)
@@ -58,7 +58,7 @@ int main(int n, char **v)
   int id_ue = 0; // set to remove the warning, will be changed eventually by the G macro
   int rb_allocated = 0;  // set to remove the warning, will be changed eventually by the G macro
   int mcs = 0; // set to remove the warning, will be changed eventually by the G macro //NEW
-  //int rsrp = 0; // set to remove the warning, will be changed eventually by the G macro //NEW 2
+  int rsrp = 0; // set to remove the warning, will be changed eventually by the G macro //NEW 2
 
   file_prb = fopen("prb.csv", "w");
   if (file_prb == NULL)
@@ -126,6 +126,7 @@ int main(int n, char **v)
     G("id_ue",     "int",    id_ue);
     G("rb_allocated", "int",    rb_allocated);
     G("mcs", "int",    mcs); //NEW
+    G("rsrp", "int",    rsrp); //NEW 2
   }
 
   /* a buffer needed to receive events from the nr-softmodem */
@@ -149,16 +150,16 @@ int main(int n, char **v)
       //fprintf(file_prb, "%ld,%d,%d\n", time(NULL), e.e[id_ue].i, e.e[rb_allocated].i);
 
       //NEW start
-      printf("get RB_ALLOCATED event id_ue: %d rb_allocated: %d, mcs: %d\n",
-             e.e[id_ue].i, e.e[rb_allocated].i, e.e[mcs].i);
-      fprintf(file_prb, "%ld,%d,%d,%d\n", time(NULL), e.e[id_ue].i, e.e[rb_allocated].i, e.e[mcs].i);
+      printf("get RB_ALLOCATED event id_ue: %d rb_allocated: %d, mcs: %d, rsrp: %d\n",
+             e.e[id_ue].i, e.e[rb_allocated].i, e.e[mcs].i, e.e[rsrp].i);
+      fprintf(file_prb, "%ld,%d,%d,%d\n", time(NULL), e.e[id_ue].i, e.e[rb_allocated].i, e.e[mcs].i, e.e[rsrp].i);
       //NEW end
     }
   }
     
 
   fclose(file_prb);
-  fclose(file_mcs); //NEW
+  //fclose(file_mcs); //NEW
 
   return 0;
 }
