@@ -152,7 +152,7 @@ int main(int n, char **v)
       //NEW start
       printf("get RB_ALLOCATED event id_ue: %d rb_allocated: %d, mcs: %d, rsrp: %d\n",
              e.e[id_ue].i, e.e[rb_allocated].i, e.e[mcs].i, e.e[rsrp].i);
-      fprintf(file_prb, "%ld,%d,%d,%d\n", time(NULL), e.e[id_ue].i, e.e[rb_allocated].i, e.e[mcs].i, e.e[rsrp].i);
+      fprintf(file_prb, "%ld,%d,%d,%d,%d\n", time(NULL), e.e[id_ue].i, e.e[rb_allocated].i, e.e[mcs].i, e.e[rsrp].i);
       //NEW end
     }
   }
