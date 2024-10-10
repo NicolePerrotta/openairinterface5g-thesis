@@ -181,6 +181,8 @@ size_t dump_mac_stats(gNB_MAC_INST *gNB, char *output, size_t strlen, bool reset
                          stats->ul.lc_bytes[lc_id]);
     }
   }
+  
+  T(T_RB_ALLOCATED, T_INT(0), T_INT(0), T_INT(0), T_INT(0)); //NEW
   NR_SCHED_UNLOCK(&gNB->UE_info.mutex);
   return output - begin;
 }
