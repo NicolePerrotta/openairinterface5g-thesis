@@ -851,7 +851,7 @@ static void pf_dl(module_id_t module_id,
     //int csi = report->
     int rsrp = 0;
 
-    //T(T_RB_ALLOCATED, T_INT(rnti), T_INT(rb_allocated_ue), T_INT(mcs), T_INT(rsrp)); //NEW
+    T(T_RB_ALLOCATED, T_INT(rnti), T_INT(rb_allocated_ue), T_INT(mcs), T_INT(rsrp)); //NEW
 
     for (int rb = 0; rb < sched_pdsch->rbSize; rb++)
       rballoc_mask[rb + sched_pdsch->rbStart] ^= slbitmap;
