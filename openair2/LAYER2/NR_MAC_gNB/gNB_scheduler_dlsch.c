@@ -849,7 +849,7 @@ static void pf_dl(module_id_t module_id,
     n_rb_sched -= sched_pdsch->rbSize;
     int rb_allocated_ue = tot_rb - n_rb_sched;
     int mcs = sched_pdsch->mcs; //NEW 1 
-    //NR_mac_stats_t *stat = &UE->mac_stats; //NEW 2
+    NR_mac_stats_t *stats = &UE->mac_stats; //NEW 2
     //int rsrp = stat->num_rsrp_meas > 0 ? stat->cumul_rsrp / stat->num_rsrp_meas : 0; //NEW 2 
     //nr_csi_report_t *report = &UE->csi_report_template->CSI_Index_list
     //int csi = report->
