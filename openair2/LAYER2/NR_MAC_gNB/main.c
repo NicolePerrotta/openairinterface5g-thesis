@@ -193,7 +193,7 @@ size_t dump_mac_stats(gNB_MAC_INST *gNB, char *output, size_t strlen, bool reset
     int rb_allocated_ue = 0;
     int mcs = sched_ctrl->dl_bler_stats.mcs;
     int cqi = sched_ctrl->CSI_report.cri_ri_li_pmi_cqi_report.wb_cqi_1tb;
-    T(T_RB_ALLOCATED, T_INT(rnti), T_INT(rb_allocated_ue), T_INT(mcs), T_INT(cqi)); //NEW
+    //T(T_RB_ALLOCATED, T_INT(rnti), T_INT(rb_allocated_ue), T_INT(mcs), T_INT(cqi)); //NEW
   }
   NR_SCHED_UNLOCK(&gNB->UE_info.mutex);
   return output - begin;
