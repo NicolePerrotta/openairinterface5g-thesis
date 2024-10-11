@@ -35,7 +35,6 @@ void usage(void)
 }
 
 FILE* file_prb = NULL;
-//FILE* file_mcs = NULL; //NEW
 int run = 1;
 
 void exit_file(void)
@@ -67,7 +66,6 @@ int main(int n, char **v)
     abort();
   }
       
-  //fprintf(file_prb, "timestamp,id_ue,rb_allocated\n");
   fprintf(file_prb, "Unix Time,id_ue,rb_allocated,mcs,cqi\n"); //NEW
   
   /* write on a socket fails if the other end is closed and we get SIGPIPE */
@@ -144,22 +142,14 @@ int main(int n, char **v)
        * for the buffer size
        * see in event.h the structure event_arg
        */
-
-      //printf("get RB_ALLOCATED event id_ue: %d rb_allocated: %d\n",
-      //       e.e[id_ue].i, e.e[rb_allocated].i);
-      //fprintf(file_prb, "%ld,%d,%d\n", time(NULL), e.e[id_ue].i, e.e[rb_allocated].i);
-
-      //NEW start
-      printf("get RB_ALLOCATED event id_ue: %d rb_allocated: %d, mcs: %d, cqi: %d\n",
-             e.e[id_ue].i, e.e[rb_allocated].i, e.e[mcs].i, e.e[cqi].i);
-      fprintf(file_prb, "%ld,%d,%d,%d,%d\n", time(NULL), e.e[id_ue].i, e.e[rb_allocated].i, e.e[mcs].i, e.e[cqi].i);
-      //NEW end
+      printf("get RB_ALLOCATED event id_ue: %d rb_allocated: %d, mcs: %d, cqi: %d\n", // NEW
+             e.e[id_ue].i, e.e[rb_allocated].i, e.e[mcs].i, e.e[cqi].i); // NEW
+      fprintf(file_prb, "%ld,%d,%d,%d,%d\n", time(NULL), e.e[id_ue].i, e.e[rb_allocated].i, e.e[mcs].i, e.e[cqi].i); // NEW
     }
   }
     
 
   fclose(file_prb);
-  //fclose(file_mcs); //NEW
 
   return 0;
 }
