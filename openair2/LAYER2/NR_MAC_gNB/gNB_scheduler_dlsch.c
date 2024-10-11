@@ -669,16 +669,16 @@ static void pf_dl(module_id_t module_id,
       const int max_mcs = min(sched_ctrl->dl_max_mcs, max_mcs_table);
 
 
-      // New version
-      //sched_pdsch->mcs = min(bo->max_mcs, max_mcs);
-      //sched_ctrl->dl_bler_stats.mcs = sched_pdsch->mcs;
+      // NEW version
+      sched_pdsch->mcs = min(bo->max_mcs, max_mcs);
+      sched_ctrl->dl_bler_stats.mcs = sched_pdsch->mcs;
 
-      //* Old version
+      /* Old version
       if (bo->harq_round_max == 1)
         sched_pdsch->mcs = max_mcs;
       else
         sched_pdsch->mcs = get_mcs_from_bler(bo, stats, &sched_ctrl->dl_bler_stats, max_mcs, frame);
-      /**/
+      */
 
       sched_pdsch->nrOfLayers = get_dl_nrOfLayers(sched_ctrl, current_BWP->dci_format);
       sched_pdsch->pm_index =
