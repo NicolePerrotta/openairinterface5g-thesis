@@ -172,7 +172,7 @@ ID = GNB_MAC_RETRANSMISSION_DL_PDU_WITH_DATA
     GROUP = ALL:MAC:GNB:WIRESHARK
     FORMAT = int,gNB_ID : int,CC_id : int,rnti : int,frame : int,slot : int,harq_pid : int,round : buffer,data
 ID = RB_ALLOCATED
-    FORMAT = int,id_ue : int,rb_allocated : int,mcs : int,rsrp
+    FORMAT = int,id_ue : int,rb_allocated : int,mcs : int,cqi
      
 #RLC logs
 ID = ENB_RLC_DL
