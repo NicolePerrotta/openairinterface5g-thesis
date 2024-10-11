@@ -849,12 +849,7 @@ static void pf_dl(module_id_t module_id,
     n_rb_sched -= sched_pdsch->rbSize;
     int rb_allocated_ue = tot_rb - n_rb_sched;
     int mcs = sched_pdsch->mcs; //NEW 1 
-    //NR_mac_stats_t *stats = &UE->mac_stats; //NEW 2
-    //int rsrp = stat->num_rsrp_meas > 0 ? stat->cumul_rsrp / stat->num_rsrp_meas : 0; //NEW 2 
-    //nr_csi_report_t *report = &UE->csi_report_template->CSI_Index_list
-    //int csi = report->
-    int cqi = sched_ctrl->CSI_report.cri_ri_li_pmi_cqi_report.wb_cqi_1tb;
-    int rsrp = 0;
+    int cqi = sched_ctrl->CSI_report.cri_ri_li_pmi_cqi_report.wb_cqi_1tb; //NEW 2
 
     T(T_RB_ALLOCATED, T_INT(rnti), T_INT(rb_allocated_ue), T_INT(mcs), T_INT(cqi)); //NEW
 
