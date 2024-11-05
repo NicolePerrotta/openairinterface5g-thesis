@@ -1197,6 +1197,12 @@ static void pf_dl_slice(module_id_t module_id,
     n_rb_sched_s += sched_pdsch->rbSize;
     n_rb_remain_s -= sched_pdsch->rbSize;
 
+    // int rb_allocated_ue = n_rb_sched_init - *n_rb_sched;
+    int mcs = sched_pdsch->mcs; //NEW 1 
+    int cqi = sched_ctrl->CSI_report.cri_ri_li_pmi_cqi_report.wb_cqi_1tb; //NEW 2
+    T(T_RB_ALLOCATED, T_INT(rnti), T_INT(sched_pdsch->rbSize), T_INT(mcs), T_INT(cqi)); //NEW
+    // T(T_RB_ALLOCATED, T_INT(rnti), T_INT(rb_allocated_ue), T_INT(mcs), T_INT(cqi)); //NEW
+
     if ((frame & 127) == 0)
       printf("[UE %04x][%4d.%2d] slice %d , TB_size %u mcs %d RBs %d \n", 
               iterator->UE->rnti, frame, slot, 
