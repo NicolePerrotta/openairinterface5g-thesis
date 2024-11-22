@@ -1,0 +1,264 @@
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 100 to 95.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 95 to 100.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 100 to 95.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 95 to 90.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 90 to 85.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 85 to 80.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 80 to 85.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 85 to 80.
+Detected throughput: 0.0431 Mbps
+Throughput above threshold. max_ratio decreased from 80 to 75.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 75 to 80.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 80 to 85.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 85 to 90.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 90 to 85.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 85 to 80.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 80 to 85.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 85 to 80.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 80 to 75.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 75 to 70.
+Detected throughput: 0.0431 Mbps
+Throughput above threshold. max_ratio decreased from 70 to 65.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 65 to 70.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 70 to 75.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 75 to 70.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 70 to 75.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 75 to 70.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 70 to 75.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 75 to 80.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 80 to 85.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 85 to 80.
+Detected throughput: 0.0288 Mbps
+Throughput below threshold. max_ratio increased from 80 to 85.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 85 to 80.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 80 to 75.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 75 to 70.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 70 to 65.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 65 to 60.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 60 to 55.
+Detected throughput: 0.0251 Mbps
+Throughput below threshold. max_ratio increased from 55 to 60.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 60 to 55.
+Detected throughput: 0.0431 Mbps
+Throughput above threshold. max_ratio decreased from 55 to 50.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 50 to 45.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 45 to 50.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 50 to 55.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 55 to 60.
+Detected throughput: 0.0431 Mbps
+Throughput above threshold. max_ratio decreased from 60 to 55.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 55 to 50.
+Detected throughput: 0.0431 Mbps
+Throughput above threshold. max_ratio decreased from 50 to 45.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 45 to 40.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 40 to 35.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 35 to 40.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 40 to 35.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 35 to 40.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 40 to 45.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 45 to 50.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 50 to 45.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 45 to 40.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 40 to 45.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 45 to 40.
+Detected throughput: 0.0431 Mbps
+Throughput above threshold. max_ratio decreased from 40 to 35.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 35 to 30.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 30 to 25.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 25 to 20.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 20 to 15.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 15 to 20.
+Detected throughput: 0.0432 Mbps
+Throughput above threshold. max_ratio decreased from 20 to 15.
+Detected throughput: 0.0324 Mbps
+Throughput above threshold. max_ratio decreased from 15 to 10.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 10 to 5.
+Detected throughput: 0.0431 Mbps
+Throughput above threshold. max_ratio decreased from 5 to 0.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 0 to 0.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 0 to 0.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 0 to 5.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 5 to 10.
+Detected throughput: 0.0432 Mbps
+Throughput above threshold. max_ratio decreased from 10 to 5.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 5 to 0.
+Detected throughput: 0.0431 Mbps
+Throughput above threshold. max_ratio decreased from 0 to 0.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 0 to 0.
+Detected throughput: 0.0431 Mbps
+Throughput above threshold. max_ratio decreased from 0 to 0.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 0 to 0.
+Detected throughput: 0.0431 Mbps
+Throughput above threshold. max_ratio decreased from 0 to 0.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 0 to 0.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 0 to 0.
+Detected throughput: 0.0431 Mbps
+Throughput above threshold. max_ratio decreased from 0 to 0.
+Detected throughput: 0.0323 Mbps
+Throughput above threshold. max_ratio decreased from 0 to 0.
+Detected throughput: 0.0431 Mbps
+Throughput above threshold. max_ratio decreased from 0 to 0.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 0 to 5.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 5 to 10.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 10 to 15.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 15 to 20.
+Detected throughput: 0.0431 Mbps
+Throughput above threshold. max_ratio decreased from 20 to 15.
+Detected throughput: 0.0323 Mbps
+Throughput below threshold. max_ratio increased from 15 to 20.
+Detected throughput: 0.0324 Mbps
+Throughput below threshold. max_ratio increased from 20 to 25.
+Detected throughput: 0.0323 Mbps
+Throughput below threshold. max_ratio increased from 25 to 30.
+Detected throughput: 0.0323 Mbps
+Throughput below threshold. max_ratio increased from 30 to 35.
+Detected throughput: 0.0431 Mbps
+Throughput below threshold. max_ratio increased from 35 to 40.
+Detected throughput: 0.0323 Mbps
+Throughput below threshold. max_ratio increased from 40 to 45.
+Detected throughput: 0.0431 Mbps
+Throughput below threshold. max_ratio increased from 45 to 50.
+Detected throughput: 0.0323 Mbps
+Throughput below threshold. max_ratio increased from 50 to 55.
+Detected throughput: 0.0431 Mbps
+Throughput below threshold. max_ratio increased from 55 to 60.
+Detected throughput: 0.0323 Mbps
+Throughput below threshold. max_ratio increased from 60 to 65.
+Detected throughput: 0.0324 Mbps
+Throughput below threshold. max_ratio increased from 65 to 70.
+Detected throughput: 0.0324 Mbps
+Throughput below threshold. max_ratio increased from 70 to 75.
+Detected throughput: 0.0431 Mbps
+Throughput below threshold. max_ratio increased from 75 to 80.
+Detected throughput: 0.0323 Mbps
+Throughput below threshold. max_ratio increased from 80 to 85.
+Detected throughput: 0.0431 Mbps
+Throughput below threshold. max_ratio increased from 85 to 90.
+Detected throughput: 0.0323 Mbps
+Throughput below threshold. max_ratio increased from 90 to 95.
+Detected throughput: 0.0323 Mbps
+Throughput below threshold. max_ratio increased from 95 to 100.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0323 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0431 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0431 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0323 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0323 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0431 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0431 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0431 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0323 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0216 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
+Detected throughput: 0.0108 Mbps
+Throughput below threshold. max_ratio increased from 100 to 100.
