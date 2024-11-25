@@ -57,6 +57,7 @@
 #define HALFWORD 16
 #define WORD 32
 //#define SIZE_OF_POINTER sizeof (void *)
+int modified_mcs;
 
 int get_dl_tda(const gNB_MAC_INST *nrmac, const NR_ServingCellConfigCommon_t *scc, int slot) {
 
@@ -627,7 +628,7 @@ void nr_update_slice_policy(module_id_t module_id, frame_t frame, sub_frame_t sl
   struct json_object *s_obj, *s_array, *s_array_obj;
   uint8_t sst;
   uint32_t sd;
-  uint8_t min_ratio, max_ratio, dedicated_ratio;
+  uint8_t min_ratio, max_ratio, dedicated_ratio, set_mcs;
   const char *file = RC.nrmac[module_id]->SliceConfigFile;
 
   s_obj = json_object_from_file(file);
@@ -655,6 +656,9 @@ void nr_update_slice_policy(module_id_t module_id, frame_t frame, sub_frame_t sl
     min_ratio = json_object_get_int(json_object_object_get(s_array_obj, "min_ratio"));
     max_ratio = json_object_get_int(json_object_object_get(s_array_obj, "max_ratio"));
     dedicated_ratio = json_object_get_int(json_object_object_get(s_array_obj, "dedicated_ratio"));
+    set_mcs = json_object_get_int(json_object_object_get(s_array_obj, "set_mcs"));
+
+    modified_mcs = set_mcs; //NEW
 
     if (sd == NULL) {
         sd = 0xffffff;
@@ -909,6 +913,7 @@ void slice_prb_estimate(module_id_t module_id,
       else mcs = bler_stats->mcs;
 
       //printf("estimated mcs = %u \n",mcs);
+      mcs = modified_mcs;   
 
       uint8_t nrOfLayers = get_dl_nrOfLayers(sched_ctrl, dl_bwp->dci_format);
       uint8_t Qm = nr_get_Qm_dl(mcs, dl_bwp->mcsTableIdx);
