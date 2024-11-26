@@ -657,8 +657,10 @@ void nr_update_slice_policy(module_id_t module_id, frame_t frame, sub_frame_t sl
     max_ratio = json_object_get_int(json_object_object_get(s_array_obj, "max_ratio"));
     dedicated_ratio = json_object_get_int(json_object_object_get(s_array_obj, "dedicated_ratio"));
     set_mcs = json_object_get_int(json_object_object_get(s_array_obj, "set_mcs"));
-    //set_mcs = atoi(set_mcs);
-    modified_mcs = set_mcs; //NEW
+    if (i == 0)
+    {
+      modified_mcs = set_mcs; // NEW
+    }
 
     if (sd == NULL) {
         sd = 0xffffff;
