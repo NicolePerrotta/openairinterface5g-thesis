@@ -13,7 +13,7 @@
             "dedicated_ratio": 5,
             "min_ratio": 10,
             "max_ratio": 100,
-            "set_mcs": 28
+            "set_mcs": 6
         },
         {
             "sst": 1,
@@ -21,7 +21,7 @@
             "dedicated_ratio": 5,
             "min_ratio": 10,
             "max_ratio": 100,
-            "set_mcs": 28
+            "set_mcs": 7
         }
     ]
 }
