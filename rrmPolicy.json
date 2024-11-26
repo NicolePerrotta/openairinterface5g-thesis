@@ -12,14 +12,16 @@
             "sd": 1,
             "dedicated_ratio": 5,
             "min_ratio": 10,
-            "max_ratio": 100
+            "max_ratio": 100,
+            "set_mcs": 28
         },
         {
             "sst": 1,
             "sd": 2,
             "dedicated_ratio": 5,
             "min_ratio": 10,
-            "max_ratio": 100
+            "max_ratio": 100,
+            "set_mcs": 28
         }
     ]
 }
