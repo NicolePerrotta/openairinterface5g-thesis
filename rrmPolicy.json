@@ -3,24 +3,24 @@
         {
             "sst": 1,
             "dedicated_ratio": 5,
-            "min_ratio": 10,
-            "max_ratio": 0,
+            "min_ratio": 2,
+            "max_ratio": 2,
             "set_mcs": 4
         },
         {
             "sst": 1,
             "sd": 1,
             "dedicated_ratio": 5,
-            "min_ratio": 10,
-            "max_ratio": 0,
+            "min_ratio": 2,
+            "max_ratio": 2,
             "set_mcs": 6
         },
         {
             "sst": 1,
             "sd": 2,
             "dedicated_ratio": 5,
-            "min_ratio": 10,
-            "max_ratio": 0,
+            "min_ratio": 2,
+            "max_ratio": 2,
             "set_mcs": 7
         }
     ]

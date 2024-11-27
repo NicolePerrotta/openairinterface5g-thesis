@@ -38,18 +38,25 @@ def monitor_throughput():
             data = json.load(f)
 
         changes = []
+        percentage = 0.02
         for policy in data["rrmPolicyRatio"]:
             max_ratio = policy["max_ratio"]
-            if throughput > current_threshold:
-                new_max_ratio = max(0, min(100, max_ratio - 2))
+            set_mcs = policy["set_mcs"]
+            if throughput > (1+percentage)*current_threshold:
+                new_max_ratio = max(2, min(100, max_ratio - 2))
                 change_message = (
                     f"Throughput: {throughput:.4f} Mbps. max_ratio decreased from {max_ratio} to {new_max_ratio}.\n"
                 )
-            else:
-                new_max_ratio = max(0, min(100, max_ratio + 2))
+                if new_max_ratio==2:
+                    policy["set_mcs"] = set_mcs-1
+            elif throughput < (1-percentage)*current_threshold:
+                policy["set_mcs"] = 0
+                new_max_ratio = max(2, min(100, max_ratio + 2)) 
                 change_message = (
                     f"Throughput: {throughput:.4f} Mbps. max_ratio increased from {max_ratio} to {new_max_ratio}.\n"
                 )
+            else:
+                f"Throughput: {throughput:.4f} Mbps around the threshold.\n"
             if new_max_ratio != max_ratio:
                 changes.append(change_message)
                 policy["max_ratio"] = new_max_ratio
