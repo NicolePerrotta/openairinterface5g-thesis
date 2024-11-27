@@ -1036,7 +1036,7 @@ static void pf_dl_slice(module_id_t module_id,
     if (bo->harq_round_max == 1)
       sched_pdsch->mcs = max_mcs;
     else
-      sched_pdsch->mcs = modified_mcs; //get_mcs_from_bler(bo, stats, &sched_ctrl->dl_bler_stats, max_mcs, frame); //NEW
+      sched_pdsch->mcs = get_mcs_from_bler(bo, stats, &sched_ctrl->dl_bler_stats, max_mcs, frame); //NEW modified_mcs
     sched_pdsch->nrOfLayers = get_dl_nrOfLayers(sched_ctrl, current_BWP->dci_format);
     sched_pdsch->pm_index = get_pm_index(mac, UE, current_BWP->dci_format, sched_pdsch->nrOfLayers, mac->radio_config.pdsch_AntennaPorts.XP);
     const uint8_t Qm = nr_get_Qm_dl(sched_pdsch->mcs, current_BWP->mcsTableIdx);

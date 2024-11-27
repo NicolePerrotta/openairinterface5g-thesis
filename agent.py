@@ -41,12 +41,12 @@ def monitor_throughput():
         for policy in data["rrmPolicyRatio"]:
             max_ratio = policy["max_ratio"]
             if throughput > current_threshold:
-                new_max_ratio = max(0, min(100, max_ratio - 5))
+                new_max_ratio = max(0, min(100, max_ratio - 2))
                 change_message = (
                     f"Throughput: {throughput:.4f} Mbps. max_ratio decreased from {max_ratio} to {new_max_ratio}.\n"
                 )
             else:
-                new_max_ratio = max(0, min(100, max_ratio + 5))
+                new_max_ratio = max(0, min(100, max_ratio + 2))
                 change_message = (
                     f"Throughput: {throughput:.4f} Mbps. max_ratio increased from {max_ratio} to {new_max_ratio}.\n"
                 )
