@@ -1035,7 +1035,7 @@ static void pf_dl_slice(module_id_t module_id,
     const int max_mcs = min(sched_ctrl->dl_max_mcs, max_mcs_table); //NEW
     if (bo->harq_round_max == 1)
       sched_pdsch->mcs = max_mcs;
-    else if (modified_mcs == 0)
+    else if (modified_mcs == 1)
         sched_pdsch->mcs = get_mcs_from_bler(bo, stats, &sched_ctrl->dl_bler_stats, max_mcs, frame); //NEW
     else
         sched_pdsch->mcs = modified_mcs; //NEW
