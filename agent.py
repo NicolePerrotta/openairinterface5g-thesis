@@ -45,15 +45,17 @@ def monitor_throughput():
             if throughput > (1+percentage)*current_threshold:
                 new_max_ratio = max(2, min(100, max_ratio - 2))
                 change_message = (
-                    f"Throughput: {throughput:.4f} Mbps. max_ratio decreased from {max_ratio} to {new_max_ratio}.\n"
+                    f"Throughput: {throughput:.4f} Mbps => max_ratio decreased from {max_ratio} to {new_max_ratio}"
                 )
-                if new_max_ratio==2:
+                if new_max_ratio==2 and set_mcs>4:
                     policy["set_mcs"] = set_mcs-1
+                    f"and mcs decreased of 1"
+                f".\n"
             elif throughput < (1-percentage)*current_threshold:
                 policy["set_mcs"] = 0
                 new_max_ratio = max(2, min(100, max_ratio + 2)) 
                 change_message = (
-                    f"Throughput: {throughput:.4f} Mbps. max_ratio increased from {max_ratio} to {new_max_ratio}.\n"
+                    f"Throughput: {throughput:.4f} Mbps => max_ratio increased from {max_ratio} to {new_max_ratio}.\n"
                 )
             else:
                 f"Throughput: {throughput:.4f} Mbps around the threshold.\n"
