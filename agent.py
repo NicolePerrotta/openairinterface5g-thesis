@@ -47,7 +47,7 @@ def monitor_throughput():
                 change_message = (
                     f"Throughput: {throughput:.4f} Mbps => max_ratio decreased from {max_ratio} to {new_max_ratio}"
                 )
-                if new_max_ratio==2 and set_mcs>4:
+                if new_max_ratio==2:
                     policy["set_mcs"] = set_mcs-1
                     f"and mcs decreased of 1"
                 f".\n"
